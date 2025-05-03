@@ -22,7 +22,7 @@ actor AuthService{
     }
     
     //MARK: Reg
-    func singUp(withEmail email: String, password: String) async throws -> Profile {
+    func signUp(withEmail email: String, password: String) async throws -> Profile {
         let user =  try await auth.createUser(withEmail: email,
                                               password: password).user
         

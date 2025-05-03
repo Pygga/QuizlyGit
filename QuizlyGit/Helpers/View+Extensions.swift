@@ -29,3 +29,22 @@ extension View{
         return .zero
     }
 }
+
+
+// MARK: - Supporting Types
+extension GameViewModel {
+    enum GameState {
+        case loading
+        case inProgress
+        case finished(results: GameResults)
+        case error(message: String)
+    }
+    
+    struct GameResults {
+        let totalQuestions: Int
+        let correctAnswers: Int
+        let usedHints: Int
+        let totalTime: Int
+        let finalScore: Int
+    }
+}
