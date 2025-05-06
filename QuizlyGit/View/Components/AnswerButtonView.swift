@@ -26,31 +26,32 @@ struct AnswerButtonView: View {
     }
     
     var body: some View {
-        Button(action: action) {
-            HStack {
-                Text(text)
-                    .multilineTextAlignment(.leading)
-                    .foregroundColor(textColor)
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                if isSelected {
-                    Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
-                        .foregroundColor(.white)
-                        .padding(.trailing)
+
+            Button(action: action) {
+                HStack {
+                    Text(text)
+                        .multilineTextAlignment(.leading)
+                        .foregroundColor(textColor)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    if isSelected {
+                        Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(.white)
+                            .padding(.trailing)
+                    }
                 }
+                .background(backgroundColor)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                )
+                .scaleEffect(isSelected ? 1.02 : 1)
+                .opacity(isDisabled && !isSelected ? 0.6 : 1)
             }
-            .background(backgroundColor)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-            )
-            .scaleEffect(isSelected ? 1.02 : 1)
-            .opacity(isDisabled && !isSelected ? 0.6 : 1)
-        }
-        .disabled(isDisabled)
-        .buttonStyle(PlainButtonStyle())
+            .disabled(isDisabled)
+            .buttonStyle(PlainButtonStyle())
     }
 }
 //

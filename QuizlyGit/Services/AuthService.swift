@@ -6,27 +6,29 @@
 //
 
 import FirebaseAuth
-
+//Сервис для работы с аунтефикацией
 actor AuthService{
     static let shared = AuthService(); private init() { }
     let auth = Auth.auth()
     
-    var currentUser: User? { auth.currentUser}
+    var currentUser: User? { auth.currentUser }
     
     //MARK: Auth
     func signIn(withEmail email: String, password: String) async throws -> Profile {
-        let user = try await auth.signIn(withEmail: email,
+        let user = try await Auth.auth().signIn(withEmail: email,
                                          password: password).user
+        print("User found")
         let profile = try await FirestoreService.shared.getProfile(user.uid)
         return profile
     }
     
     //MARK: Reg
     func signUp(withEmail email: String, password: String) async throws -> Profile {
-        let user =  try await auth.createUser(withEmail: email,
-                                              password: password).user
-        
-        let profile = Profile(id: user.uid, name: "", email: user.email!, score: 0)
+        let user = try await Auth.auth().createUser(withEmail: email,
+                                              password: password)
+        let currentUser = user.user
+        print("User created")
+        let profile = Profile(id: currentUser.uid, name: "", email: currentUser.email!, score: 0)
         return try await FirestoreService.shared.createProfile(profile)
     }
     

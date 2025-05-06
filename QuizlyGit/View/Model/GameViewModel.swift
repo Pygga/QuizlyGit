@@ -9,6 +9,10 @@ import Foundation
 import Combine
 import FirebaseFirestore
 
+//class TimerManager: ObservableObject {
+//    @Published var currentTime: Int = 0
+//}
+
 class GameViewModel: ObservableObject {
     // MARK: - Published Properties
     @Published var questions: [Question] = []
@@ -23,10 +27,8 @@ class GameViewModel: ObservableObject {
     private let questionStorage = QuestionStorage.shared //
     // MARK: - Game Configuration
     private let config: QuizConfig
-//    private let firestoreService = QuestionService.shared
     private var timer: AnyCancellable?
     private var startDate: Date?
-    
     // MARK: - Initialization
     init(config: QuizConfig) {
         self.config = config
@@ -52,29 +54,9 @@ class GameViewModel: ObservableObject {
                 }
             
         }
-    
-//    private func loadQuestions() {
-//        Task {
-//            do {
-//                let questions = try await firestoreService.fetchQuestions(forCategory: config.categories)
-//                await MainActor.run {
-//                    if questions.isEmpty {
-//                        gameState = .error(message: "Вопросы не найдены")
-//                    } else {
-//                        setupGame(with: questions)
-//                    }
-//                }
-//            } catch {
-//                await MainActor.run {
-//                    gameState = .error(message: "Ошибка загрузки вопросов")
-//                }
-//            }
-//        }
-//    }
-    
     private func setupGame(with questions: [Question]) {
         self.questions = questions
-        startTimer()
+//        startTimer()
         gameState = .inProgress
         startDate = Date()
     }

@@ -11,25 +11,38 @@ extension AuthView {
     @Observable
     class Observed{
         var currentProfile: Profile?
+        var errorMessage: String? // Для показа ошибок
         
         func auth(email: String, password: String){
             Task{
-                let profile = try await AuthService.shared.signIn(withEmail: email, password: password)
-                await MainActor.run{
-                    self.currentProfile = profile
-//                    HomeView.Observed.init(userID: profile.id).fetchData(userID: profile.id)
+                do {
+                    let profile = try await AuthService.shared.signIn(withEmail: email, password: password)
+                    await MainActor.run {
+                        self.currentProfile = profile
+                    }
+                } catch {
+                    await MainActor.run {
+                        self.errorMessage = "Ошибка входа: \(error.localizedDescription)"
+                    }
                 }
             }
         }
         
         func singUp(email: String, password: String, confirmPassword: String){
             guard password == confirmPassword else {
+                errorMessage = "Пароли не совпадают"
                 return
             }
             Task{
-                let profile = try await AuthService.shared.signUp(withEmail: email, password: password)
-                await MainActor.run{
-                    self.currentProfile = profile
+                do {
+                    let profile = try await AuthService.shared.signUp(withEmail: email, password: password)
+                    await MainActor.run {
+                        self.currentProfile = profile
+                    }
+                } catch {
+                    await MainActor.run {
+                        self.errorMessage = "Ошибка регистрации: \(error.localizedDescription)"
+                    }
                 }
                 
             }

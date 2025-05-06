@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("userTheme") private var userTheme: Theme = .systemDefault
+    @AppStorage("log_status") var logStatus: Bool = false
     @State var observed: Observed = .init()
-    
     var body: some View {
         
-        if observed.appState == .authorized{
+        if logStatus{
             HomeView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.themeBG)
+                .preferredColorScheme(userTheme.colorScheme)
         } else {
-            AuthView(routeObserved: observed)
+            AuthView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .preferredColorScheme(userTheme.colorScheme)
 //                .background{
 //                    AnimatedMeshGradient()
 //                        .ignoresSafeArea()

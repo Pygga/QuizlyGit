@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import FirebaseAuth
 
 extension HomeView{
     @Observable
@@ -22,17 +23,17 @@ extension HomeView{
         var showingCategoryPicker = false
         var currentProfile: Profile = .init(id: "", name: "", email: "", score: 0)
         var questions: [Question] = []
-        
-        init(userID: String = "yipyn1SlzIVDFt8bPu865TpfZpT2") {
-            fetchData(userID: userID)
+        init() {
+            fetchData()
         }
         
-        func fetchData(userID: String){
+        func fetchData(){
             Task{
-                let profile = try await FirestoreService.shared.getProfile(userID)
+                guard let userUID = Auth.auth().currentUser?.uid else { return }
+                let profile = try await FirestoreService.shared.getProfile(userUID)
                 await MainActor.run {
                     currentProfile = profile
-                }
+                }   
             }
         }
         

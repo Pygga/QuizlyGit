@@ -9,7 +9,7 @@ import SwiftUI
 // Заглушка для GameView (реализацию игры нужно добавить отдельно)
 struct GameView: View {
     @ObservedObject var viewModel: GameViewModel
-
+    @State private var displayedTime: Int = 0
     var body: some View {
         ZStack{
             Group {
@@ -48,7 +48,9 @@ struct GameView: View {
             HStack {
                 Text("Вопрос \(viewModel.currentQuestionIndex + 1)/\(viewModel.questions.count)")
                 Spacer()
-                Text("\(viewModel.timeRemaining)s")
+
+//                Text("\(viewModel.timeRemaining)s")
+//                TimeView(time: viewModel.timeRemaining)
             }
             .padding()
 
@@ -84,5 +86,14 @@ struct GameView: View {
             }
             .padding()
         }
+    }
+}
+
+struct TimeView: View {
+    let time: Int
+    
+    var body: some View {
+        Text("\(time)")
+            .contentTransition(.numericText())
     }
 }

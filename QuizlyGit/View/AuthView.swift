@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct AuthView: View {
+    @AppStorage("log_status") var logStatus: Bool = false
+    
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirm: String = ""
     @State private var isAuth: Bool = true
-    @Bindable var routeObserved: ContentView.Observed
     @State private var observed: Observed = Observed()
     
     var body: some View {
@@ -35,10 +36,13 @@ struct AuthView: View {
             CustomButton(title: isAuth ? "Войти" : "Регистрация"){
                 if isAuth {
                     observed.auth(email: email, password: password)
+                    
                 } else {
                     observed.singUp(email: email, password: password, confirmPassword: confirm)
+                    
                 }
-                routeObserved.appState = .authorized
+//                logStatus = true
+//                routeObserved.appState = .authorized
             }
             .padding(.bottom, 9)
             Button(isAuth ? "Еще не с нами?" : "Уже есть аккаунт?") {
@@ -49,6 +53,16 @@ struct AuthView: View {
             .font(.callout)
             .tint(.gray)
 
+        } .onChange(of: observed.currentProfile) { _, newValue in
+            logStatus = (newValue != nil) // Обновляем logStatus при изменении currentProfile
+        }
+        .alert("Ошибка", isPresented: Binding<Bool>(
+            get: { observed.errorMessage != nil },
+            set: { _ in observed.errorMessage = nil }
+        )) {
+            Button("OK") { }
+        } message: {
+            Text(observed.errorMessage ?? "")
         }
         .padding(.horizontal, 43)
     }

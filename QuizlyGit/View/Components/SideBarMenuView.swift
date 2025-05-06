@@ -8,21 +8,30 @@
 import SwiftUI
 
 struct SideBarMenuView: View {
+    @AppStorage("log_status") var logStatus: Bool = false
     @State var safeArea: UIEdgeInsets
     @Binding var selectedTab: Tab
+    var closeMenu: () -> Void
+    
     var body: some View {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Side Menu")
+                Text("Меню")
                     .font(.largeTitle.bold())
                     .padding(.bottom, 10)
-                SideBarButton(.home) { selectedTab = .home }
-                SideBarButton(.profile){ selectedTab = .profile }
-                SideBarButton(.statistics) { selectedTab = .statistics }
-                SideBarButton(.settings) { selectedTab = .settings }
+                ForEach(Tab.allCases.filter { $0 != .logout }, id: \.self) { tab in
+                                SideBarButton(tab) {
+                                    selectedTab = tab
+                                    closeMenu()
+                                }
+                            }
                 
                 Spacer(minLength: 0)
                 
-                SideBarButton(.logout) { selectedTab = .settings }
+                SideBarButton(.logout) {
+                    selectedTab = .logout
+                    closeMenu()
+                    logStatus = false
+                }
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 20)
@@ -53,19 +62,19 @@ struct SideBarMenuView: View {
 
 //Пока что так
 enum Tab: String, CaseIterable {
-    case home = "house.fill"
+    case home = "gamecontroller.fill"
+    case profile = "person.circle.fill"
     case statistics = "chart.bar.fill"
     case settings = "gearshape.fill"
-    case profile = "person.circle.fill"
     case logout = "rectangle.portrait.and.arrow.forward.fill"
     
     var title: String {
         switch self {
             
-        case .home: return "Home"
-        case .profile: return "Profile"
-        case .statistics: return "Statistics"
-        case .settings: return "Settings"
+        case .home: return "Играть"
+        case .profile: return "Профиль"
+        case .statistics: return "Статистика"
+        case .settings: return "Настройки"
         case .logout: return "Выход"
         }
     }

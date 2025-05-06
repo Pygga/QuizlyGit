@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-
+import FirebaseAuth
 
 struct HomeView: View {
 //    @State private var profile: Profile
     @State private var observed = Observed()
     @State private var navigateToGame = false
     @State private var showMenu: Bool = false
-    
+//    @State private var currentProfile = Observed().currentProfile
 //    @State private var scrollPosition: ScrollPosition = .init()
     @State private var currentScrollOffset: CGFloat = 0
     @State private var timer = Timer.publish(every: 0.01, on: .current, in: .default).autoconnect()
@@ -33,45 +33,20 @@ struct HomeView: View {
             selectedTab: $selectedTab
         ){ safeArea in
             NavigationStack{
-                ZStack{
-                    // Header
-                    
-                    VStack(spacing: 20) {
+                Group {
+                    switch selectedTab {
+                    case .home:
+                        mainContentView
+                    case .profile:
+                        ProfileView()
                         
-                        VStack {
-                            Text("Добро пожаловать, \(observed.currentProfile.name.isEmpty ? observed.currentProfile.email : observed.currentProfile.name)!")
-                                .font(.title)
-                            Text("Хорошей игры!")
-                                .font(.subheadline)
-                        }
-                        .padding(.top, 40)
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 20) {
-                                ForEach(observed.availableCategories) { category in
-                                    CategoryButtonView(
-                                        category: category,
-                                        isSelected: observed.selectedCategories.contains(category.id)
-                                    ) {
-                                        observed.toggleCategory(category.id)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                        .containerRelativeFrame(.horizontal) { length, axis in
-                            length * 0.9
-                        }
-                        NavigationLink(destination: makeGameView(), label: { Text("Играть")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.green)
-                                .foregroundColor(.white)
-                            .cornerRadius(10) })
-                        // Кнопка Играть
-                        
+                    case .statistics:
+                        StatisticsView()
+                    case .settings:
+                        SettingsView()
+                    case .logout:
+                        EmptyView()
                     }
-                    .padding()
                 }
                 .toolbar{
                     ToolbarItem(placement: .topBarLeading) {
@@ -84,10 +59,53 @@ struct HomeView: View {
                 }
             }
         } menuView: { saveArea in
-            SideBarMenuView(safeArea: safeArea, selectedTab: $selectedTab)
+            SideBarMenuView(safeArea: safeArea, selectedTab: $selectedTab, closeMenu: { showMenu = false })
         } background: {
             Rectangle()
                 .fill(.darkGrey)
+        }
+    }
+    
+    private var mainContentView: some View {
+        ZStack{
+            // Header
+            
+            VStack(spacing: 20) {
+                
+                VStack {
+                    Text("Добро пожаловать, \(observed.currentProfile.name.isEmpty ? observed.currentProfile.email : observed.currentProfile.name)!")
+                        .font(.title)
+                    Text("Хорошей игры!")
+                        .font(.subheadline)
+                }
+                .padding(.top, 40)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(observed.availableCategories) { category in
+                            CategoryButtonView(
+                                category: category,
+                                isSelected: observed.selectedCategories.contains(category.id)
+                            ) {
+                                observed.toggleCategory(category.id)
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+                .containerRelativeFrame(.horizontal) { length, axis in
+                    length * 0.9
+                }
+                NavigationLink(destination: makeGameView(), label: { Text("Играть")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                    .cornerRadius(10) })
+                // Кнопка Играть
+                
+            }
+            .padding()
         }
     }
     
@@ -101,6 +119,8 @@ struct HomeView: View {
             questionsCount: 15
         )
     }
+
+    
 }
 
 #Preview {

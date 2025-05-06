@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Profile: Identifiable{
+class Profile: Identifiable, Equatable{
     let id: String
     let name: String
     let email: String
@@ -19,6 +19,11 @@ class Profile: Identifiable{
         self.name = name
         self.email = email
         self.score = score
+    }
+    
+    // Реализация Equatable
+    static func == (lhs: Profile, rhs: Profile) -> Bool {
+        lhs.id == rhs.id // Сравниваем по id, так как он уникален
     }
 }
 

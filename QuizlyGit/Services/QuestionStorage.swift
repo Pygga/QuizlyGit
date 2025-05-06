@@ -7,7 +7,7 @@
 import Foundation
 import FirebaseFirestore
 
-// 1. Сервис для загрузки и хранения вопросов
+// Сервис для загрузки и хранения вопросов
 class QuestionStorage {
     static let shared = QuestionStorage()
     private init() {}

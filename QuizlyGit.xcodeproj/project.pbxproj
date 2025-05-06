@@ -60,7 +60,6 @@
 		B2E59F5D2DC1FB9000E52208 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E59F5C2DC1FB9000E52208 /* CustomButton.swift */; };
 		B2E59F5F2DC21D5400E52208 /* AuthObserved.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E59F5E2DC21D5400E52208 /* AuthObserved.swift */; };
 		B2E59F612DC226EB00E52208 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E59F602DC226EB00E52208 /* Question.swift */; };
-		B2E59F632DC2401000E52208 /* QuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E59F622DC2401000E52208 /* QuestionService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,7 +101,6 @@
 		B2E59F5C2DC1FB9000E52208 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		B2E59F5E2DC21D5400E52208 /* AuthObserved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthObserved.swift; sourceTree = "<group>"; };
 		B2E59F602DC226EB00E52208 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
-		B2E59F622DC2401000E52208 /* QuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,7 +179,6 @@
 				B22812752DC6569E00CDBF1E /* QuestionStorage.swift */,
 				B2167F812DC0F1D100C1E216 /* AuthService.swift */,
 				B2167F832DC0F52400C1E216 /* FirestoreService.swift */,
-				B2E59F622DC2401000E52208 /* QuestionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -397,7 +394,6 @@
 				B2E59F542DC14B3600E52208 /* AuthView.swift in Sources */,
 				B2594A0C2DC29D9000ECA24A /* AnswerButtonView.swift in Sources */,
 				B2594A0A2DC29D3A00ECA24A /* QuestionCardView.swift in Sources */,
-				B2E59F632DC2401000E52208 /* QuestionService.swift in Sources */,
 				B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */,
 				B22812782DC6631500CDBF1E /* ProfileView.swift in Sources */,
 				B2E59F592DC14C8000E52208 /* ThemeChangeView.swift in Sources */,
