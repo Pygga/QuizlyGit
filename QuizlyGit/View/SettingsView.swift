@@ -18,7 +18,8 @@ struct SettingsView: View {
     @AppStorage("selectedLanguage") private var language: String = "ru"
     @AppStorage("notificationsEnabled") private var notificationsEnabled: Bool = false
     
-    @State private var currentUser: Profile = .init(id: "", name: "", email: "", score: 0)
+//    @State private var currentUser: Profile = .init(id: "", name: "", email: "", score: 0)
+    @StateObject private var viewModel = SettingsViewModel()
     
     let userUID = Auth.auth().currentUser?.uid ?? " "
     var body: some View {
@@ -27,8 +28,10 @@ struct SettingsView: View {
                 Section("Профиль"){
                     VStack(alignment: .leading){
                         //
-                        HStack(){
-                            Text("Имя: \(currentUser.name.isEmpty ? "Не указано" : currentUser.name)")
+                        HStack{
+                            Text("Имя: \(viewModel.currentUser.name.isEmpty ? "Не указано" : viewModel.currentUser.name)")
+                            Spacer()
+                            Text("Очки: \(viewModel.currentUser.score)")
                         }
                         //
                         Button{
@@ -47,9 +50,9 @@ struct SettingsView: View {
                 
                 Section("Настройки приложения"){
                     //
-                    Picker("Язык", selection: .constant("Русский")) {
-                        Text("Русский").tag("Русский")
-                        Text("Английский").tag("Английский")
+                    Picker("Язык", selection: $viewModel.settings.language) {
+                        Text("Русский").tag("ru")
+                        Text("English").tag("en")
                     }
                     //
                     Button("Сменить тему"){
@@ -59,12 +62,19 @@ struct SettingsView: View {
                 }
                 
                 Section("Уведомления"){
-                    Toggle(isOn: .constant(true)) {
-                        Text("Получать уведомления")
+                    Toggle("Получать уведомления", isOn: $viewModel.settings.notificationsEnabled)
+                        .onChange(of: viewModel.settings.notificationsEnabled) { enabled in
+                        if enabled {
+                            requestNotificationPermission()
+                        } else {
+                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        }
                     }
                 }
             }
             .navigationTitle("Настройки")
+            .task { await viewModel.saveSettings()
+                await viewModel.loadData() }
         }
         .preferredColorScheme(userTheme.colorScheme)
         .sheet(isPresented: $changeTheme, content: {
@@ -76,6 +86,35 @@ struct SettingsView: View {
             ProfileView()
         })
 
+    }
+    
+    // MARK: - Notification Setup
+    private func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+            if granted {
+                scheduleDailyNotifications()
+            }
+        }
+    }
+    
+    private func scheduleDailyNotifications() {
+        let content = UNMutableNotificationContent()
+        content.title = "Не забудьте зайти в приложение!"
+        content.body = "Проверьте свои достижения и новые вопросы"
+        content.sound = .default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(
+            timeInterval: 86400, // 24 часа
+            repeats: true
+        )
+        
+        let request = UNNotificationRequest(
+            identifier: "dailyReminder",
+            content: content,
+            trigger: trigger
+        )
+        
+        UNUserNotificationCenter.current().add(request)
     }
 }
 

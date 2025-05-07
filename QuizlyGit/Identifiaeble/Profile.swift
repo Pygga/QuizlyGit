@@ -12,7 +12,7 @@ class Profile: Identifiable, Equatable{
     let name: String
     let email: String
     var score: Int
-    var lastSessionId: String?
+//    var lastSessionId: String?
     
     init(id: String, name: String, email: String, score: Int) {
         self.id = id
@@ -47,7 +47,7 @@ extension Profile{
         representation["name"] = name
         representation["email"] = email
         representation["score"] = score
-        representation["lastSessionId"] = lastSessionId
+//        representation["lastSessionId"] = lastSessionId
         
         return representation
     }

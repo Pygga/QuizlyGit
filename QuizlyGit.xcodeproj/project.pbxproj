@@ -38,6 +38,11 @@
 		B22812782DC6631500CDBF1E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812772DC6631500CDBF1E /* ProfileView.swift */; };
 		B228127A2DC6633400CDBF1E /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812792DC6633400CDBF1E /* StatisticsView.swift */; };
 		B228127C2DC6634500CDBF1E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228127B2DC6634500CDBF1E /* SettingsView.swift */; };
+		B228127E2DCA7D7200CDBF1E /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228127D2DCA7D7200CDBF1E /* AppSettings.swift */; };
+		B22812802DCA7D8A00CDBF1E /* UserStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228127F2DCA7D8A00CDBF1E /* UserStatistics.swift */; };
+		B22812822DCA7EDF00CDBF1E /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812812DCA7EDF00CDBF1E /* SettingsViewModel.swift */; };
+		B22812842DCB94FD00CDBF1E /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812832DCB94FD00CDBF1E /* RatingView.swift */; };
+		B22812862DCBA34F00CDBF1E /* GitRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812852DCBA34F00CDBF1E /* GitRank.swift */; };
 		B23F380F2DC5FC2E00FD440B /* InfiniteScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23F380E2DC5FC2E00FD440B /* InfiniteScrollView.swift */; };
 		B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23F38102DC607C200FD440B /* QuizConfig.swift */; };
 		B2594A082DC2725400ECA24A /* HomeObserved.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A072DC2725400ECA24A /* HomeObserved.swift */; };
@@ -79,6 +84,11 @@
 		B22812772DC6631500CDBF1E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B22812792DC6633400CDBF1E /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		B228127B2DC6634500CDBF1E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B228127D2DCA7D7200CDBF1E /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		B228127F2DCA7D8A00CDBF1E /* UserStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatistics.swift; sourceTree = "<group>"; };
+		B22812812DCA7EDF00CDBF1E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		B22812832DCB94FD00CDBF1E /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		B22812852DCBA34F00CDBF1E /* GitRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRank.swift; sourceTree = "<group>"; };
 		B23F380E2DC5FC2E00FD440B /* InfiniteScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteScrollView.swift; sourceTree = "<group>"; };
 		B23F38102DC607C200FD440B /* QuizConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizConfig.swift; sourceTree = "<group>"; };
 		B2594A072DC2725400ECA24A /* HomeObserved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeObserved.swift; sourceTree = "<group>"; };
@@ -186,6 +196,7 @@
 		B2167F792DC0ECAF00C1E216 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B22812852DCBA34F00CDBF1E /* GitRank.swift */,
 				B2E59F552DC14BDF00E52208 /* View+Extensions.swift */,
 			);
 			path = Helpers;
@@ -195,6 +206,9 @@
 			isa = PBXGroup;
 			children = (
 				B2167F7C2DC0ED4900C1E216 /* UserAnswer.swift */,
+				B23F38102DC607C200FD440B /* QuizConfig.swift */,
+				B228127D2DCA7D7200CDBF1E /* AppSettings.swift */,
+				B228127F2DCA7D8A00CDBF1E /* UserStatistics.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -210,8 +224,9 @@
 				B2E59F512DC14B2100E52208 /* HomeView.swift */,
 				B2E59F532DC14B3600E52208 /* AuthView.swift */,
 				B22812772DC6631500CDBF1E /* ProfileView.swift */,
-				B22812792DC6633400CDBF1E /* StatisticsView.swift */,
 				B228127B2DC6634500CDBF1E /* SettingsView.swift */,
+				B22812792DC6633400CDBF1E /* StatisticsView.swift */,
+				B22812832DCB94FD00CDBF1E /* RatingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -236,7 +251,7 @@
 		B2594A042DC26FAC00ECA24A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B23F38102DC607C200FD440B /* QuizConfig.swift */,
+				B22812812DCA7EDF00CDBF1E /* SettingsViewModel.swift */,
 				B2594A0D2DC3612800ECA24A /* GameViewModel.swift */,
 			);
 			path = Model;
@@ -380,11 +395,15 @@
 				B22812742DC635D700CDBF1E /* Category.swift in Sources */,
 				B2E59F612DC226EB00E52208 /* Question.swift in Sources */,
 				B2167F842DC0F52400C1E216 /* FirestoreService.swift in Sources */,
+				B22812862DCBA34F00CDBF1E /* GitRank.swift in Sources */,
 				B2594A0E2DC3612800ECA24A /* GameViewModel.swift in Sources */,
 				B2167F802DC0EFFF00C1E216 /* Profile.swift in Sources */,
 				B2594A082DC2725400ECA24A /* HomeObserved.swift in Sources */,
+				B22812822DCA7EDF00CDBF1E /* SettingsViewModel.swift in Sources */,
+				B22812802DCA7D8A00CDBF1E /* UserStatistics.swift in Sources */,
 				B22812722DC6358B00CDBF1E /* CategoryButtonView.swift in Sources */,
 				B22812702DC629A500CDBF1E /* SideBarMenuView.swift in Sources */,
+				B22812842DCB94FD00CDBF1E /* RatingView.swift in Sources */,
 				B2167F822DC0F1D200C1E216 /* AuthService.swift in Sources */,
 				B2594A262DC4E60300ECA24A /* AnimatedSideBar.swift in Sources */,
 				B2167F402DC0EAD200C1E216 /* ContentView.swift in Sources */,
@@ -393,6 +412,7 @@
 				B228127C2DC6634500CDBF1E /* SettingsView.swift in Sources */,
 				B2E59F542DC14B3600E52208 /* AuthView.swift in Sources */,
 				B2594A0C2DC29D9000ECA24A /* AnswerButtonView.swift in Sources */,
+				B228127E2DCA7D7200CDBF1E /* AppSettings.swift in Sources */,
 				B2594A0A2DC29D3A00ECA24A /* QuestionCardView.swift in Sources */,
 				B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */,
 				B22812782DC6631500CDBF1E /* ProfileView.swift in Sources */,

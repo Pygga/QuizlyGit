@@ -1,3 +1,11 @@
+//
+//  GitRank.swift
+//  QuizlyGit
+//
+//  Created by Виктор Евграфов on 07.05.2025.
+//
+import Foundation
+
 enum GitRank: String, CaseIterable {
     case newcomer = "Новичок"
     case contributor = "Контрибьютор"

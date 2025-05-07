@@ -37,11 +37,10 @@ struct HomeView: View {
                     switch selectedTab {
                     case .home:
                         mainContentView
-                    case .profile:
-                        ProfileView()
-                        
                     case .statistics:
                         StatisticsView()
+                    case .rating:
+                        RatingView()
                     case .settings:
                         SettingsView()
                     case .logout:

@@ -7,8 +7,26 @@
 import Foundation
 
 // MARK: - Модель настроек
-struct AppSettings: Codable {
+struct AppSettings {
     var language: String = "ru"
     var notificationsEnabled: Bool = true
-    var theme: String = "system"
+}
+
+extension AppSettings {
+    init?(representation: [String: Any]) {
+        guard let language = representation["language"] as? String,
+              let notificationsEnabled = representation["notificationsEnabled"] as? Bool else {
+            return nil
+        }
+        
+        self.language = language
+        self.notificationsEnabled = notificationsEnabled
+    }
+    
+    var representation: [String: Any] {
+        return [
+            "language": language,
+            "notificationsEnabled": notificationsEnabled
+        ]
+    }
 }
