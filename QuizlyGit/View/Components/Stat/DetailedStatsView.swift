@@ -1,0 +1,104 @@
+//
+//  DetailedStatsView.swift
+//  QuizlyGit
+//
+//  Created by Виктор Евграфов on 07.05.2025.
+//
+import SwiftUI
+
+
+struct DetailedStatsView: View {
+    @ObservedObject var viewModel: StatisticsViewModel
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            SectionHeader(title: "Детальная статистика")
+            
+            VStack(spacing: 8) {
+                StatRow(title: "Общее время в игре", 
+                       value: viewModel.formattedTotalPlayTime)
+                Divider()
+                StatRow(title: "Самое быстрое прохождение", 
+                       value: viewModel.formattedFastestQuiz)
+                Divider()
+                StatRow(title: "Самое долгое прохождение", 
+                       value: viewModel.formattedSlowestQuiz)
+                Divider()
+                StatRow(title: "Всего вопросов отвечено", 
+                       value: "\(viewModel.stats.questionsAnswered)")
+                Divider()
+                StatRow(title: "Процент правильных ответов", 
+                       value: viewModel.correctPercentage)
+                Divider()
+                StatRow(title: "Подсказок использовано", 
+                       value: "\(viewModel.stats.hintsUsed)")
+            }
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(12)
+            .shadow(radius: 2)
+        }
+        .padding(.horizontal)
+    }
+}
+
+// MARK: - Вспомогательные компоненты
+private struct SectionHeader: View {
+    let title: String
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.secondary)
+            Spacer()
+        }
+        .padding(.leading)
+    }
+}
+
+private struct StatRow: View {
+    let title: String
+    let value: String
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.subheadline)
+            
+            Spacer()
+            
+            Text(value)
+                .font(.subheadline.bold())
+                .foregroundColor(.primary)
+        }
+    }
+}
+
+// MARK: - Расширение для форматирования
+extension StatisticsViewModel {
+    var formattedTotalPlayTime: String {
+        formatTime(seconds: stats.totalPlayTime)
+    }
+    
+    var formattedFastestQuiz: String {
+        stats.fastestQuiz > 0 ? formatTime(seconds: stats.fastestQuiz) : "N/A"
+    }
+    
+    var formattedSlowestQuiz: String {
+        formatTime(seconds: stats.slowestQuiz)
+    }
+    
+    var correctPercentage: String {
+        guard stats.questionsAnswered > 0 else { return "0%" }
+        let percentage = Double(stats.correctAnswers) / Double(stats.questionsAnswered) * 100
+        return String(format: "%.1f%%", percentage)
+    }
+    
+    private func formatTime(seconds: Int) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .abbreviated
+        return formatter.string(from: TimeInterval(seconds)) ?? "0 сек"
+    }
+}

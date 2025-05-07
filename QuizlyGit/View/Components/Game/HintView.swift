@@ -64,6 +64,6 @@ struct HintView: View {
         .shadow(radius: 10)
         .compositingGroup()
         .transition(.move(edge: .bottom))
-        .animation(.spring(), value: isPresented)
+        .animation(.easeInOut, value: isPresented)
     }
 }

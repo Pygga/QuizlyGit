@@ -37,10 +37,6 @@ actor FirestoreService{
         
         return settings
     }
-//    func getSettings(userId: String) async throws -> AppSettings {
-//        let snapshot = try await settingsRef(for: userId).getDocument()
-//        return try snapshot.data(as: AppSettings.self)
-//    }
     
     func updateSettings(userId: String, settings: AppSettings) async throws {
         try await settingsRef(for: userId).setData(settings.representation, merge: true)
@@ -50,15 +46,8 @@ actor FirestoreService{
     // MARK: - Статистика
     func getStatistics(userId: String) async throws -> UserStatistics {
         let snapshot = try await statsRef(for: userId).getDocument()
-        
-        guard let data = snapshot.data() else {
-            throw NSError(domain: "FirestoreError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Документ не найден"])
-        }
-        
-        guard let stats = UserStatistics(representation: data) else {
-            throw NSError(domain: "FirestoreError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Ошибка парсинга данных"])
-        }
-        return stats
+        guard let data = snapshot.data() else { return UserStatistics() }
+        return UserStatistics(representation: data) ?? UserStatistics()
     }
     
     func updateStatistics(userId: String, stats: UserStatistics) async throws {

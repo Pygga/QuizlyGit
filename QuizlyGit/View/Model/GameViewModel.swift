@@ -24,6 +24,7 @@ class GameViewModel: ObservableObject {
     @Published var totalScore: Int = 0
     @Published var usedHints: Int = 0
     @Published var correctAnswers: Int = 0
+    @Published var incorrectAnswers: Int = 0
     private let questionStorage = QuestionStorage.shared //
     // MARK: - Game Configuration
     private let config: QuizConfig
@@ -93,6 +94,8 @@ class GameViewModel: ObservableObject {
         
         if isAnswerCorrect(index) {
             correctAnswers += 1
+        } else {
+            incorrectAnswers += 1
         }
     }
     
@@ -150,15 +153,18 @@ class GameViewModel: ObservableObject {
     // MARK: - Game Completion
     private func endGame() {
         timer?.cancel()
-        gameState = .finished(
-            results: GameResults(
-                totalQuestions: questions.count,
-                correctAnswers: self.correctAnswers,
-                usedHints: usedHints,
-                totalTime: totalGameTime(),
-                finalScore: self.totalScore
-            )
+        let results = GameResults(
+            totalQuestions: questions.count,
+            correctAnswers: self.correctAnswers,
+            usedHints: usedHints,
+            totalTime: totalGameTime(),
+            finalScore: self.totalScore
         )
+        
+        gameState = .finished(results: results)
+        
+        // Сохраняем конкретные результаты игры
+        StatisticsManager.shared.saveGameResults(results)
     }
     
     private func calculateCorrectAnswers() -> Int {

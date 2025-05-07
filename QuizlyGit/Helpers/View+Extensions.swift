@@ -39,12 +39,18 @@ extension GameViewModel {
         case finished(results: GameResults)
         case error(message: String)
     }
-    
-    struct GameResults {
-        let totalQuestions: Int
-        let correctAnswers: Int
-        let usedHints: Int
-        let totalTime: Int
-        let finalScore: Int
+}
+
+struct GameResults {
+    let totalQuestions: Int
+    let correctAnswers: Int
+    let usedHints: Int
+    let totalTime: Int
+    let finalScore: Int
+}
+
+extension GameResults {
+    var incorrectAnswers: Int {
+        totalQuestions - correctAnswers
     }
 }

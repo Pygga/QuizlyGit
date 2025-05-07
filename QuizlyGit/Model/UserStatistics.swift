@@ -16,6 +16,7 @@ struct UserStatistics {
     var correctAnswers: Int = 0
     var totalScore: Int = 0
     var hintsUsed: Int = 0
+    var incorrectAnswers: Int = 0
 }
 
 extension UserStatistics {
@@ -27,7 +28,8 @@ extension UserStatistics {
               let questionsAnswered = representation["questionsAnswered"] as? Int,
               let totalScore = representation["totalScore"] as? Int,
               let hintsUsed = representation["hintsUsed"] as? Int,
-              let correctAnswers = representation["correctAnswers"] as? Int else {
+              let correctAnswers = representation["correctAnswers"] as? Int,
+              let incorrectAnswers = representation["incorrectAnswers"] as? Int else {
             return nil
         }
         
@@ -39,6 +41,7 @@ extension UserStatistics {
         self.totalScore = totalScore
         self.hintsUsed = hintsUsed
         self.correctAnswers = correctAnswers
+        self.incorrectAnswers = incorrectAnswers
     }
     
     var representation: [String: Any] {
@@ -50,6 +53,7 @@ extension UserStatistics {
             "questionsAnswered": questionsAnswered,
             "totalScore": totalScore,
             "correctAnswers": correctAnswers,
+            "incorrectAnswers": incorrectAnswers,
             "hintsUsed": hintsUsed
         ]
     }

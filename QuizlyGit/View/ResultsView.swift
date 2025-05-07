@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ResultsView: View {
-    let results: GameViewModel.GameResults
+    let results: GameResults
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
