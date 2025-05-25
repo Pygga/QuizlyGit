@@ -1,0 +1,91 @@
+/* 
+  Localizable.strings
+  QuizlyGit
+
+  Created by Виктор Евграфов on 23.05.2025.
+  
+*/
+
+/* Profile */
+"profile" = "Profile";
+"name" = "Name";
+"not_specified" = "Not specified";
+"points" = "Points";
+"profile_settings" = "Profile Settings";
+
+/* Settings */
+"app_settings" = "App Settings";
+"language" = "Language";
+"theme" = "Theme";
+"notifications" = "Notifications";
+"receive_notifications" = "Receive notifications";
+"change_theme" = "Change theme";
+"delete_account" = "Delete account";
+"sign_out" = "Sign out";
+"title_settings" = "Settings";
+
+/* HomeView */
+"app_title" = "Git Quiz";
+"app_subtitle" = "Test your knowledge";
+"select_category" = "Select Topic";
+"full_test" = "Full Test";
+"survival_mode" = "Survival Mode";
+"category_description" = "Test for specific category";
+"full_test_description" = "All questions in a row";
+"survival_description" = "Extreme challenge";
+"good_morning" = "Good morning";
+"good_afternoon" = "Good afternoon";
+"good_evening" ="Good evening";
+"good_night" = "Good night";
+
+/* GameView */
+"question" = "Question";
+"time_remaining" = "Time: %d sec";
+"next_button" = "Next";
+"hint_button" = "Hint (%d)";
+"exit_warning" = "Progress will be lost";
+"results_title" = "Results";
+"correct_answers" = "Correct Answers";
+"time_spent" = "Time Spent";
+"hints_used" = "Hints Used";
+"total_score" = "Total Score";
+"back_to_home" = "Back to Home";
+
+/* Rating View */
+"rating" = "Player rating";
+"points" = "points";
+"place" = "Your place:";
+
+/* StatisticsView */
+"statistics" = "My statistics";
+"detailed_statistics" = "Detailed statistics";
+"to" = "To";
+"total_time_in_game" = "Total time in game";
+"the_fastest_passage" = "The fastest passage";
+"the_longest_passage" = "The longest Passage";
+"total_questions_answered" = "Total questions answered";
+"percentage_of_correct_answers" = "Percentage of correct answers";
+
+/* StatsGrid */
+"game_played" = "Games Played";
+"stat_total_score" = "Total Score";
+"stat_correct_answers" = "Correct Answers";
+"average_time" = "Average Time";
+
+/*AnswersPieChart*/
+"right" = "Right";
+"wrong" = "Wrong";
+"correctly" = "correctly";
+
+/* SideBarMenuView */
+"bar_menu" = "Side Menu";
+"play" = "Play";
+"rating" = "Rating";
+"statistics" = "Statistics";
+"settings" = "Settings";
+
+/* TestSettingsView */
+"test_settings" = "Test settings";
+"number_of_questions" = "Number of questions:";
+"time_to_ask" = "Time to ask:";
+"show_hints" = "Show hints ?";

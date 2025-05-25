@@ -12,6 +12,7 @@ import FirebaseAuth
 extension HomeView{
     @Observable
     class Observed{
+        
         var availableCategories: [Category] = [
             Category(id: "1", name: "Git Basics", iconName: "doc.text", color: .blue),
             Category(id: "2", name: "Advanced", iconName: "gear", color: .green),
@@ -21,10 +22,30 @@ extension HomeView{
         ]
         var selectedCategories: Set<String> = []
         var showingCategoryPicker = false
-        var currentProfile: Profile = .init(id: "", name: "", email: "", score: 0)
+        var currentProfile: Profile
         var questions: [Question] = []
+        
+        var showHints: Bool = true
+        var timePerQuestion: Int = 30
+        var questionsCount: Int = 15
+        
+        var currentConfig: QuizConfig {
+            QuizConfig(
+                categories: Array(selectedCategories),
+                showHints: showHints,
+                timePerQuestion: timePerQuestion,
+                questionsCount: questionsCount,
+                stopOnWrongAnswer: false
+            )
+        }
+        
         init() {
+            self.currentProfile = Profile(id: "", name: "", email: "", score: 0)
             fetchData()
+        }
+        
+        func updateProfile(_ newProfile: Profile) {
+            currentProfile = newProfile
         }
         
         func fetchData(){

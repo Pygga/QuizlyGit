@@ -9,18 +9,23 @@ import SwiftUI
 import FirebaseAuth
 
 struct HomeView: View {
-//    @State private var profile: Profile
     @State private var observed = Observed()
     @State private var navigateToGame = false
     @State private var showMenu: Bool = false
-//    @State private var currentProfile = Observed().currentProfile
-//    @State private var scrollPosition: ScrollPosition = .init()
+    @State private var showTestSettings = false
+    @State private var selectedCategory: String?
+    @State private var showingCategorySelection = false
+    @State private var activeGameView: Bool = false
     @State private var currentScrollOffset: CGFloat = 0
-    @State private var timer = Timer.publish(every: 0.01, on: .current, in: .default).autoconnect()
     
+    @State private var navigationPath = NavigationPath()
     @State private var selectedTab: Tab = .home
+    @State private var gameConfig: QuizConfig?
+    
+    @EnvironmentObject var localization: LocalizationManager
+    
     private func makeGameView() -> some View {
-        GameView(viewModel: GameViewModel(config: makeConfig()))
+        GameView(viewModel: GameViewModel(config: makeConfig()), onExit: { navigationPath.removeLast(navigationPath.count)})
     }
     
     var body: some View {
@@ -32,19 +37,59 @@ struct HomeView: View {
             showMenu: $showMenu,
             selectedTab: $selectedTab
         ){ safeArea in
-            NavigationStack{
+            NavigationStack(){
                 Group {
-                    switch selectedTab {
-                    case .home:
-                        mainContentView
-                    case .statistics:
-                        StatisticsView()
-                    case .rating:
-                        RatingView()
-                    case .settings:
-                        SettingsView()
-                    case .logout:
-                        EmptyView()
+                    ZStack{
+                        AnimatedMeshGradient()
+                            .blur(radius: 100, opaque: true)
+                            .ignoresSafeArea()
+                        switch selectedTab {
+                        case .home:
+                            NavigationStack(path: $navigationPath){
+                                mainContentView
+                                    .background(
+                                        LinearGradient(
+                                            colors: [.background, .secondaryBackground],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                                    .navigationDestination(for: String.self) { destination in
+                                        switch destination {
+                                        case "category":
+                                            CategorySelectionView(observed: observed) { category in
+                                                gameConfig = QuizConfig(
+                                                    categories: [category],
+                                                    showHints: observed.showHints,
+                                                    timePerQuestion: observed.timePerQuestion,
+                                                    questionsCount: observed.questionsCount,
+                                                    stopOnWrongAnswer: false
+                                                )
+                                                navigationPath.count > 1 ? navigationPath.removeLast() : ()
+                                                navigationPath.append("game")
+                                            }
+                                        case "game":
+                                            
+                                            GameView(viewModel: GameViewModel(config: gameConfig ?? observed.currentConfig),onExit: { navigationPath.removeLast()})
+                                                .navigationBarHidden(true)
+                                            
+                                            
+                                        default:
+                                            EmptyView()
+                                        }
+                                    }
+                            }
+                        case .statistics:
+                            StatisticsView()
+                                .background(.themeBG)
+                        case .rating:
+                            RatingView()
+                        case .settings:
+                            SettingsView(observed: observed)
+                                .background(.themeBG)
+                        case .logout:
+                            EmptyView()
+                        }
                     }
                 }
                 .toolbar{
@@ -57,69 +102,162 @@ struct HomeView: View {
                     }
                 }
             }
+            
         } menuView: { saveArea in
             SideBarMenuView(safeArea: safeArea, selectedTab: $selectedTab, closeMenu: { showMenu = false })
         } background: {
             Rectangle()
                 .fill(.darkGrey)
         }
+        
     }
     
     private var mainContentView: some View {
         ZStack{
+            AnimatedMeshGradient()
+                .blur(radius: 100, opaque: true)
+                .ignoresSafeArea()
             // Header
-            
-            VStack(spacing: 20) {
-                
-                VStack {
-                    Text("Добро пожаловать, \(observed.currentProfile.name.isEmpty ? observed.currentProfile.email : observed.currentProfile.name)!")
-                        .font(.title)
-                    Text("Хорошей игры!")
-                        .font(.subheadline)
-                }
-                .padding(.top, 40)
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(observed.availableCategories) { category in
-                            CategoryButtonView(
-                                category: category,
-                                isSelected: observed.selectedCategories.contains(category.id)
-                            ) {
-                                observed.toggleCategory(category.id)
+            ScrollView {
+                VStack(spacing: 20) {
+                    HeaderView()
+                    
+                    Spacer()
+                    
+                    NavigationCard(
+                            icon: "list.bullet",
+                            title: "select_category",
+                            subtitle: "category_description",
+                            color: LinearGradient(
+                                colors: [
+                                    Color(.sRGB, red: 1.0000, green: 0.4824, blue: 0.4824),
+                                    Color(.sRGB, red: 0.9020, green: 0.3529, blue: 0.3529)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            action: {
+                                navigationPath.append("category") }
+                        )
+                    NavigationCard(
+                            icon: "questionmark.circle.fill",
+                            title: "full_test",
+                            subtitle: "full_test_description",
+                            color: LinearGradient(
+                                colors: [
+                                    Color(.sRGB, red: 1.0000, green: 0.4824, blue: 0.4824),
+                                    Color(.sRGB, red: 0.9020, green: 0.3529, blue: 0.3529)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            action: {
+                                gameConfig = QuizConfig(
+                                    categories: ["Git Basics","Advanced", "Branching", "Remote", "Undo"],
+                                    showHints: observed.showHints,
+                                    timePerQuestion: observed.timePerQuestion,
+                                    questionsCount: QuestionStorage.shared.allQuestions.count,
+                                    stopOnWrongAnswer: false
+                                )
+//                                activeGameView = true
+                                navigationPath.append("game")
                             }
-                        }
-                    }
-                    .padding(.horizontal)
+                    )
+                    NavigationCard(
+                        icon: "xmark.circle.fill",
+                        title: "survival_mode",
+                        subtitle: "survival_description",
+                        color: LinearGradient(
+                            colors: [
+                                Color(.sRGB, red: 1.0000, green: 0.4824, blue: 0.4824),
+                                Color(.sRGB, red: 0.9020, green: 0.3529, blue: 0.3529)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        action: {
+                                gameConfig = QuizConfig(
+                                    categories: ["Git Basics","Advanced", "Branching", "Remote", "Undo"],
+                                    showHints: observed.showHints,
+                                    timePerQuestion: observed.timePerQuestion,
+                                    questionsCount: QuestionStorage.shared.allQuestions.count,
+                                    stopOnWrongAnswer: true
+                                )
+                            navigationPath.append("game")
+                            }
+                    )
                 }
-                .containerRelativeFrame(.horizontal) { length, axis in
-                    length * 0.9
+                .padding(.horizontal)
+                .sheet(isPresented: $showTestSettings) {
+                    TestSettingsView(observed: observed)
+                        .presentationDetents([.height(410)])
+                        .presentationBackground(.clear)
                 }
-                NavigationLink(destination: makeGameView(), label: { Text("Играть")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                    .cornerRadius(10) })
-                // Кнопка Играть
-                
             }
-            .padding()
+            .toolbar{
+                ToolbarItem(placement: .bottomBar) {
+                    HStack{
+                        Spacer()
+                        Button(action: {gameConfig = observed.currentConfig
+                            showTestSettings.toggle()}) {
+                                Image(systemName: "gearshape.2.fill")
+                                    .foregroundStyle(Color.primary)
+                                    .contentTransition(.symbolEffect)
+                            }
+                            .padding(.trailing, 12)
+                    }
+                }
+            }
         }
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
     
     private func makeConfig() -> QuizConfig {
-        let isPreset = observed.selectedCategories.isEmpty
-        return QuizConfig(
-            categories: Array(observed.selectedCategories),
-            isPresetTest: isPreset,
-            showHints: true,  // Берем значение из настроек или используем true по умолчанию
-            timePerQuestion: 30,
-            questionsCount: 15
-        )
-    }
+            observed.currentConfig // Используем вычисляемое свойство
+        }
+}
 
+// Персонализированное приветствие
+private struct HeaderView: View {
+    @State private var observed = HomeView.Observed()
+    @EnvironmentObject var localization: LocalizationManager
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(greetingText)
+                
+                .font(.title)
+                .transition(.opacity)
+        }
+        .padding()
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
+    }
     
+    private var greetingText: String {
+        let name = observed.currentProfile.name.isEmpty ?
+        "Пользователь" : observed.currentProfile.name
+        
+        let timeGreeting = getTimeDependentGreeting()
+        return "\(timeGreeting), \(name)!"
+    }
+    
+    private func getTimeDependentGreeting() -> String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        if localization.currentLanguage == "en"{
+            switch hour {
+            case 6..<12: return "Good morning"
+            case 12..<18: return "Good afternoon"
+            case 18..<24: return "Good evening"
+            default: return "Good night"
+            }
+        } else {
+            switch hour {
+            case 6..<12: return "Доброе утро"
+            case 12..<18: return "Добрый день"
+            case 18..<24: return "Добрый вечер"
+            default: return "Доброй ночи"
+            }
+        }
+    }
 }
 
 #Preview {

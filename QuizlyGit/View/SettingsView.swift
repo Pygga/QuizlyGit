@@ -14,55 +14,64 @@ struct SettingsView: View {
     @State private var showProfileView: Bool = false
     
     @Environment(\.colorScheme) private var scheme
+    
     @AppStorage("userTheme") private var userTheme: Theme = .systemDefault
-    @AppStorage("selectedLanguage") private var language: String = "ru"
     @AppStorage("notificationsEnabled") private var notificationsEnabled: Bool = false
     
-//    @State private var currentUser: Profile = .init(id: "", name: "", email: "", score: 0)
-    @StateObject private var viewModel = SettingsViewModel()
+    @Bindable var observed: HomeView.Observed
+    @StateObject private var viewModel: SettingsViewModel
+    @EnvironmentObject var localization: LocalizationManager
+    
+    init(observed: HomeView.Observed) {
+        self.observed = observed
+        self._viewModel = StateObject(wrappedValue: SettingsViewModel(observed: observed))
+    }
     
     let userUID = Auth.auth().currentUser?.uid ?? " "
     var body: some View {
         NavigationStack{
             List{
-                Section("Профиль"){
+                Section(LocalizedStringKey("profile")){
                     VStack(alignment: .leading){
-                        //
                         HStack{
-                            Text("Имя: \(viewModel.currentUser.name.isEmpty ? "Не указано" : viewModel.currentUser.name)")
-                            Spacer()
-                            Text("Очки: \(viewModel.currentUser.score)")
+                            Text(LocalizedStringKey("name"))
+                            Text(": \(viewModel.currentUser.name.isEmpty ? Text(String(format:LocalizationManager.shared.localizedString("not_specified")) ) : Text(viewModel.currentUser.name))")
                         }
-                        //
+                        //Кнопка перехода на экран редактирования профиля
                         Button{
                             showProfileView.toggle()
                         } label: {
-                            Text("Настройки профиля")
+                            Text(LocalizedStringKey("profile_settings"))
                                 .background{
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(.blue)
                                         .padding(.top, 30)
                                 }
-//                                .foregroundStyle(Color.white)
                         }
                     }
                 }
                 
-                Section("Настройки приложения"){
-                    //
-                    Picker("Язык", selection: $viewModel.settings.language) {
+                Section(LocalizedStringKey("app_settings")){
+                    //Выбор языка
+                    Picker(LocalizedStringKey("language"), selection: $localization.currentLanguage) {
                         Text("Русский").tag("ru")
                         Text("English").tag("en")
                     }
-                    //
-                    Button("Сменить тему"){
+                    .onChange(of: viewModel.settings.language) { newValue in
+                        localization.currentLanguage = newValue
+                        print(viewModel.settings.language)
+                        print("\\\\\\\\\\\\")
+                    }
+                    //Выбор темы
+                    Button(LocalizedStringKey("change_theme")){
                         changeTheme.toggle()
                     }.foregroundColor(.primary)
                     
                 }
                 
-                Section("Уведомления"){
-                    Toggle("Получать уведомления", isOn: $viewModel.settings.notificationsEnabled)
+                Section(LocalizedStringKey("notifications")){
+                    //Уведомления
+                    Toggle(LocalizedStringKey("receive_notifications"), isOn: $viewModel.settings.notificationsEnabled)
                         .onChange(of: viewModel.settings.notificationsEnabled) { enabled in
                         if enabled {
                             requestNotificationPermission()
@@ -72,9 +81,10 @@ struct SettingsView: View {
                     }
                 }
             }
-            .navigationTitle("Настройки")
-            .task { await viewModel.saveSettings()
-                await viewModel.loadData() }
+            .navigationTitle(LocalizedStringKey("title_settings"))
+            .task {await viewModel.loadData()
+                viewModel.saveSettings()
+                 }
         }
         .preferredColorScheme(userTheme.colorScheme)
         .sheet(isPresented: $changeTheme, content: {
@@ -83,9 +93,9 @@ struct SettingsView: View {
                     .presentationBackground(.clear)
         })
         .sheet(isPresented: $showProfileView, content: {
-            ProfileView()
+            ProfileView(viewModel: viewModel)
         })
-
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
     
     // MARK: - Notification Setup
@@ -116,8 +126,4 @@ struct SettingsView: View {
         
         UNUserNotificationCenter.current().add(request)
     }
-}
-
-#Preview {
-    SettingsView()
 }

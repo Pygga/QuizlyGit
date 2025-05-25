@@ -8,36 +8,60 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var name: String = ""
+    @ObservedObject var viewModel: SettingsViewModel
+    
     var body: some View {
-        NavigationStack{
-            VStack(spacing: 9){
-                Image(systemName: "person.circle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100)
-                    .padding()
-                TextField(" Ваше имя", text: $name)
-                    .frame(height: 55)
-                    .background(.gitOrange, in: RoundedRectangle(cornerRadius: 14).stroke(lineWidth: 2))
-                    .padding()
-                
-                Button(action: {
+        Form {
+            Section(header: Text("Основная информация")) {
+                HStack {
+                    if let image = viewModel.avatarImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 80, height: 80)
+                            .clipShape(Circle())
+                    } else {
+                        AsyncImage(url: viewModel.currentUser.avatarURL) { image in
+                            image.resizable()
+                        } placeholder: {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                        }
+                        .frame(width: 80, height: 80)
+                        .clipShape(Circle())
+                    }
                     
-                }, label:{
-                    Text("Изменить пароль")
-                })
-                Spacer()
-            }
-            .navigationTitle("Настройки профиля")
-            Section(""){
+                    Button("Изменить фото") {
+                        viewModel.showImagePicker.toggle()
+                    }
+                }
                 
+                TextField("Новое имя", text: $viewModel.newName)
+                Button("Сохранить имя") {
+                    Task { await viewModel.updateName() }
+                }
+            }
+            
+            Section(header: Text("Безопасность")) {
+                SecureField("Текущий пароль", text: $viewModel.currentPassword)
+                SecureField("Новый пароль", text: $viewModel.newPassword)
+                Button("Сменить пароль") {
+                    Task { await viewModel.changePassword() }
+                }
+            }
+            
+            Section {
+                Button("Удалить аккаунт", role: .destructive) {
+                    viewModel.deleteAccount()
+                }
             }
         }
-//        Text("Hello, World egere!")
+        .navigationTitle("Редактирование профиля")
+        .sheet(isPresented: $viewModel.showImagePicker) {
+            ImagePicker(image: $viewModel.avatarImage)
+        }
+        .onChange(of: viewModel.avatarImage) { _ in
+            Task { await viewModel.updateAvatar() }
+        }
     }
-}
-
-#Preview {
-    ProfileView()
 }

@@ -13,9 +13,11 @@ struct SideBarMenuView: View {
     @Binding var selectedTab: Tab
     var closeMenu: () -> Void
     
+    @EnvironmentObject var localization: LocalizationManager
+    
     var body: some View {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Меню")
+                Text(LocalizedStringKey("bar_menu"))
                     .font(.largeTitle.bold())
                     .padding(.bottom, 10)
                 ForEach(Tab.allCases.filter { $0 != .logout }, id: \.self) { tab in
@@ -39,6 +41,7 @@ struct SideBarMenuView: View {
             .padding(.bottom, safeArea.bottom)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .environment(\.colorScheme, .dark)
+            .environment(\.locale, .init(identifier: localization.currentLanguage))
         }
     
     @ViewBuilder
@@ -48,7 +51,7 @@ struct SideBarMenuView: View {
                 Image(systemName: tab.rawValue)
                     .font(.title3)
                 
-                Text(tab.title)
+                Text(LocalizedStringKey(tab.title))
                     .font(.callout)
                 
                 Spacer(minLength: 0)
@@ -71,11 +74,11 @@ enum Tab: String, CaseIterable {
     var title: String {
         switch self {
             
-        case .home: return "Играть"
-        case .rating: return "Рейтинг"
-        case .statistics: return "Статистика"
-        case .settings: return "Настройки"
-        case .logout: return "Выход"
+        case .home: return "play"
+        case .rating: return "rating"
+        case .statistics: return "statistics"
+        case .settings: return "settings"
+        case .logout: return "sign_out"
         }
     }
 }

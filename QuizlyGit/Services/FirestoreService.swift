@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseStorage
 //Сервис для работы с бд
 actor FirestoreService{
     static let shared = FirestoreService(); private init() {}
@@ -95,6 +96,17 @@ actor FirestoreService{
         }
         
         return profile
+    }
+    
+    func updateProfile(_ profile: Profile) async throws {
+        try await profiles.document(profile.id).updateData(profile.representation)
+    }
+    
+    func uploadAvatar(imageData: Data, userId: String) async throws -> URL {
+        let storageRef = Storage.storage().reference()
+        let avatarRef = storageRef.child("avatars/\(userId).jpg")
+        let _ = try await avatarRef.putDataAsync(imageData)
+        return try await avatarRef.downloadURL()
     }
 }
 

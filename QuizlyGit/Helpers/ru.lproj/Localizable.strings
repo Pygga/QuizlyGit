@@ -1,0 +1,91 @@
+/* 
+  Localizable.strings
+  QuizlyGit
+
+  Created by Виктор Евграфов on 23.05.2025.
+  
+*/
+
+/* Профиль */
+"profile" = "Профиль";
+"name" = "Имя";
+"not_specified" = "Не указано";
+"points" = "Очки";
+"profile_settings" = "Настройки профиля";
+
+/* Настройки */
+"app_settings" = "Настройки приложения";
+"language" = "Язык";
+"theme" = "Тема";
+"notifications" = "Уведомления";
+"receive_notifications" = "Получать уведомления";
+"change_theme" = "Сменить тему";
+"delete_account" = "Удалить аккаунт";
+"sign_out" = "Выйти";
+"title_settings" = "Настройки";
+
+/* HomeView */
+"app_title" = "Git Quiz";
+"app_subtitle" = "Проверь свои знания";
+"select_category" = "Выбор темы";
+"full_test" = "Весь тест";
+"survival_mode" = "До первой ошибки";
+"category_description" = "Тест по конкретной категории";
+"full_test_description" = "Все вопросы подряд";
+"survival_description" = "Экстремальный режим";
+"good_morning" = "Доброе утро";
+"good_afternoon" = "Добрый день";
+"good_evening" = "Добрый вечер";
+"good_night" = "Доброй ночи";
+
+/* GameView */
+"question" = "Вопрос";
+"time_remaining" = "Осталось: %d сек";
+"next_button" = "Далее";
+"hint_button" = "Подсказка (%d)";
+"exit_warning" = "Прогресс не будет сохранен";
+"results_title" = "Результаты теста";
+"correct_answers" = "Правильные ответы";
+"time_spent" = "Затраченное время";
+"hints_used" = "Использовано подсказок";
+"total_score" = "Итоговый счет";
+"back_to_home" = "На главную";
+
+/* Rating View */
+"rating" = "Рейтинг игроков";
+"points" = "очков";
+"place" = "Ваше место:";
+
+/* StatisticsView */
+"statistics" = "Моя статистика";
+"detailed_statistics" = "Детальная статистика";
+"to" = "До";
+"total_time_in_game" = "Общее время в игре";
+"the_fastest_passage" = "Самое быстрое прохождение";
+"the_longest_passage" = "Самое долгое прохождение";
+"total_questions_answered" = "Всего вопросов отвечено";
+"percentage_of_correct_answers" = "Процент правильных ответов";
+
+/* StatsGrid */
+"game_played" = "Игр сыграно";
+"stat_total_score" = "Общий счёт";
+"stat_correct_answers" = "Правильных ответов";
+"average_time" = "Среднее время";
+
+/*AnswersPieChart*/
+"right" = "Верно";
+"wrong" = "Ошибки";
+"correctly" = "правильно";
+
+/* SideBarMenuView */
+"bar_menu" = "Меню";
+"play" = "Играть";
+"rating" = "Рейтинг";
+"statistics" = "Статистика";
+"settings" = "Настройки";
+
+/* TestSettingsView */
+"test_settings" = "Настройки теста";
+"number_of_questions" = "Количество вопросов:";
+"time_to_ask" = "Время на вопрос:";
+"show_hints" = "Показывать подсказки ?";

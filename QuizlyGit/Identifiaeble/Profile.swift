@@ -9,10 +9,10 @@ import Foundation
 
 class Profile: Identifiable, Equatable{
     let id: String
-    let name: String
+    var name: String
     let email: String
     var score: Int
-//    var lastSessionId: String?
+    var avatarURL: URL?
     
     init(id: String, name: String, email: String, score: Int) {
         self.id = id
@@ -36,6 +36,7 @@ extension Profile{
             return nil
         }
         self.init(id: id, name: name, email: email, score: score)
+        self.avatarURL = URL(string: representation["avatarURL"] as? String ?? "")
     }
 }
 
@@ -47,7 +48,7 @@ extension Profile{
         representation["name"] = name
         representation["email"] = email
         representation["score"] = score
-//        representation["lastSessionId"] = lastSessionId
+        representation["avatarURL"] = avatarURL?.absoluteString
         
         return representation
     }

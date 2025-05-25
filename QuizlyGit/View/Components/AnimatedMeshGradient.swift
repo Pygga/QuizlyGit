@@ -10,6 +10,7 @@ import SwiftUI
 struct AnimatedMeshGradient: View {
     @State var appear = false
     @State var appear2 = false
+    @AppStorage("userTheme") private var userTheme: Theme = .systemDefault
     var body: some View {
         if #available(iOS 18.0, *) {
             MeshGradient(
@@ -20,23 +21,24 @@ struct AnimatedMeshGradient: View {
                     [0.0, 0.5],appear ? [0.1, 0.5] : [0.8, 0.3], [1.0, -0.5],
                     [0.0, 1.0], [1.0, 1.0], [ appear2 ? 2.0 : 1.0,1.0]
                 ],
-                colors: [
-                    appear2 ? .redCust : .gitOrange,appear2 ? .darkGrey : .gitOrange, .darkGrey,
-                    appear ? .redCust : .gitYellow, appear ? .gitOrange: .sun, .gitYellow,
-                    appear ? .darkGrey : .redCust, appear ? .redCust : .gitYellow, appear2 ? .gitOrange : .sun
+               colors: [
+                    appear2 ? .whiteBG : .mintBG, appear2 ? .whiteBG : .cyanBG, .whiteBG,
+                    appear ? .blueBG : .whiteBG, appear ? .cyanBG : .whiteBG, appear ? .whiteBG : .purpleBG,
+                    appear ? .whiteBG : .cyanBG, appear ? .mintBG : .whiteBG, appear ? .whiteBG : .blueBG
                 ]
-//                colors: [
-//                    appear2 ? .redCust : .mint, appear2 ? .yellow : .cyan, .gitOrange,
-//                    appear ? .blue : .red, appear ? .cyan : .white, appear ? .red : .purple,
-//                    appear ? .red : .cyan, appear ? .mint : .blue, appear ? .red : .blue
-//                ]
+                
+//                    colors: [
+//                        appear2 ? .redCust : .gitOrange,appear2 ? .darkGrey : .gitOrange, .darkGrey,
+//                        appear ? .redCust : .gitYellow, appear ? .gitOrange: .sun, .gitYellow,
+//                        appear ? .darkGrey : .redCust, appear ? .redCust : .gitYellow, appear2 ? .gitOrange : .sun
+//                    ]
             )
             .onAppear{
-                withAnimation(.easeInOut(duration : 1).repeatForever(autoreverses: true)){
+                withAnimation(.easeInOut(duration : 2).repeatForever(autoreverses: true)){
                     appear.toggle()
                 }
                 
-                withAnimation(.easeInOut(duration : 2).repeatForever(autoreverses: true)){
+                withAnimation(.easeInOut(duration : 3).repeatForever(autoreverses: true)){
                     appear2.toggle()
                 }
             }

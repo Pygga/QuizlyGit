@@ -9,10 +9,6 @@ import Foundation
 import Combine
 import FirebaseFirestore
 
-//class TimerManager: ObservableObject {
-//    @Published var currentTime: Int = 0
-//}
-
 class GameViewModel: ObservableObject {
     // MARK: - Published Properties
     @Published var questions: [Question] = []
@@ -27,11 +23,12 @@ class GameViewModel: ObservableObject {
     @Published var incorrectAnswers: Int = 0
     private let questionStorage = QuestionStorage.shared //
     // MARK: - Game Configuration
-    private let config: QuizConfig
+    private var config: QuizConfig
     private var timer: AnyCancellable?
     private var startDate: Date?
     // MARK: - Initialization
     init(config: QuizConfig) {
+        print("Создана игра с конфигом:", config)
         self.config = config
         startGame()
     }
@@ -57,13 +54,15 @@ class GameViewModel: ObservableObject {
         }
     private func setupGame(with questions: [Question]) {
         self.questions = questions
-//        startTimer()
+        self.timeRemaining = config.timePerQuestion // Используем настройку времени
+        startTimer()
         gameState = .inProgress
         startDate = Date()
     }
     
     // MARK: - Timer Management
     private func startTimer() {
+        
         timer = Timer.publish(every: 1, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
@@ -96,6 +95,9 @@ class GameViewModel: ObservableObject {
             correctAnswers += 1
         } else {
             incorrectAnswers += 1
+            if config.stopOnWrongAnswer {
+                endGame()
+            }
         }
     }
     
@@ -138,7 +140,7 @@ class GameViewModel: ObservableObject {
     
     private func resetForNextQuestion() {
         currentQuestionIndex += 1
-        timeRemaining = 30
+        timeRemaining = config.timePerQuestion
         selectedAnswerIndex = nil
         showHint = false
         startTimer()
@@ -148,6 +150,11 @@ class GameViewModel: ObservableObject {
         timer?.cancel()
         selectedAnswerIndex = -1 // Специальное значение для обозначения истечения времени
         moveToNextQuestion()
+//        if config.stopOnWrongAnswer {
+//            endGame()
+//        } else {
+//            moveToNextQuestion()
+//        }
     }
     
     // MARK: - Game Completion
@@ -162,17 +169,9 @@ class GameViewModel: ObservableObject {
         )
         
         gameState = .finished(results: results)
-        
+        config.stopOnWrongAnswer = false
         // Сохраняем конкретные результаты игры
         StatisticsManager.shared.saveGameResults(results)
-    }
-    
-    private func calculateCorrectAnswers() -> Int {
-        questions.enumerated().filter { index, _ in
-            // Здесь нужно добавить логику отслеживания правильных ответов
-            // Может потребоваться дополнительное свойство для хранения истории ответов
-            return true // Заглушка
-        }.count
     }
     
     private func totalGameTime() -> Int {

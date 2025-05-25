@@ -19,7 +19,3 @@ struct CustomButton: View {
             .background(.gitOrange, in: RoundedRectangle(cornerRadius: 14))
     }
 }
-
-//#Preview {
-//    CustomButton(title: "Войти", action: {})
-//}

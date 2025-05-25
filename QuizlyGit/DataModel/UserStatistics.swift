@@ -7,7 +7,7 @@
 import Foundation
 
 // MARK: - Модель статистики
-struct UserStatistics {
+struct UserStatistics: Codable {
     var totalPlayTime: Int = 0
     var fastestQuiz: Int = 0
     var slowestQuiz: Int = 0

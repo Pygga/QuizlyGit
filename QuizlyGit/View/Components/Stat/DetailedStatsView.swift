@@ -9,28 +9,29 @@ import SwiftUI
 
 struct DetailedStatsView: View {
     @ObservedObject var viewModel: StatisticsViewModel
-    
+    @EnvironmentObject var localization: LocalizationManager
+
     var body: some View {
         VStack(spacing: 12) {
-            SectionHeader(title: "Детальная статистика")
+            SectionHeader(title: "detailed_statistics")
             
             VStack(spacing: 8) {
-                StatRow(title: "Общее время в игре", 
+                StatRow(title: "total_time_in_game", 
                        value: viewModel.formattedTotalPlayTime)
                 Divider()
-                StatRow(title: "Самое быстрое прохождение", 
+                StatRow(title: "the_fastest_passage", 
                        value: viewModel.formattedFastestQuiz)
                 Divider()
-                StatRow(title: "Самое долгое прохождение", 
+                StatRow(title: "the_longest_passage", 
                        value: viewModel.formattedSlowestQuiz)
                 Divider()
-                StatRow(title: "Всего вопросов отвечено", 
+                StatRow(title: "total_questions_answered", 
                        value: "\(viewModel.stats.questionsAnswered)")
                 Divider()
-                StatRow(title: "Процент правильных ответов", 
+                StatRow(title: "percentage_of_correct_answers",
                        value: viewModel.correctPercentage)
                 Divider()
-                StatRow(title: "Подсказок использовано", 
+                StatRow(title: "hints_used", 
                        value: "\(viewModel.stats.hintsUsed)")
             }
             .padding()
@@ -38,21 +39,23 @@ struct DetailedStatsView: View {
             .cornerRadius(12)
             .shadow(radius: 2)
         }
-        .padding(.horizontal)
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
 }
 
 // MARK: - Вспомогательные компоненты
 private struct SectionHeader: View {
     let title: String
-    
+    @EnvironmentObject var localization: LocalizationManager
+
     var body: some View {
         HStack {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.headline)
                 .foregroundColor(.secondary)
             Spacer()
         }
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
         .padding(.leading)
     }
 }
@@ -60,10 +63,11 @@ private struct SectionHeader: View {
 private struct StatRow: View {
     let title: String
     let value: String
+    @EnvironmentObject var localization: LocalizationManager
     
     var body: some View {
         HStack {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.subheadline)
             
             Spacer()
@@ -72,6 +76,7 @@ private struct StatRow: View {
                 .font(.subheadline.bold())
                 .foregroundColor(.primary)
         }
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - Экран статистики
 struct StatisticsView: View {
     @StateObject private var viewModel = StatisticsViewModel()
+    @EnvironmentObject var localization: LocalizationManager
     
     var body: some View {
         ScrollView {
@@ -29,8 +30,9 @@ struct StatisticsView: View {
             .padding()
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle("Моя статистика")
+        .navigationTitle(LocalizedStringKey("statistics"))
         .onAppear { viewModel.loadData() }
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
 }
 
@@ -38,50 +40,39 @@ struct StatisticsView: View {
 
 private struct RankCardView: View {
     @ObservedObject var viewModel: StatisticsViewModel
-    
+    @EnvironmentObject var localization: LocalizationManager
+
     var body: some View {
         VStack(spacing: 12) {
             Text(viewModel.currentRank.rawValue)
                 .font(.title2.bold())
             
             ProgressView(value: viewModel.rankProgress)
-//                .progressViewStyle(
-//                    .linearCapacity(
-//                        trackColor: .gray.opacity(0.3),
-//                        progressColor: .blue
-//                    )
-//                )
                 .frame(height: 8)
             
             if let nextRank = viewModel.currentRank.nextRank {
-                Text("До \(nextRank.rawValue): \(viewModel.pointsToNextRank) очков")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                HStack{
+                    Text(LocalizedStringKey("to"))
+                    
+                    Text("\(nextRank.rawValue): \(viewModel.pointsToNextRank)")
+
+                    Text(LocalizedStringKey("points"))
+                }
+                .font(.subheadline)
+                .foregroundColor(.secondary)
             }
         }
         .padding()
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 5)
-    }
-}
-
-struct StatsGrid: View {
-    @ObservedObject var viewModel: StatisticsViewModel
-    
-    var body: some View {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-            StatCard(title: "Игр сыграно", value: "\(viewModel.stats.gamesPlayed)")
-            StatCard(title: "Общий счёт", value: "\(viewModel.stats.totalScore)")
-            StatCard(title: "Правильных ответов", value: "\(viewModel.stats.correctAnswers)")
-            StatCard(title: "Среднее время", value: "\(viewModel.averageTimePerGame)s")
-        }
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
 }
 
 private struct AnswersPieChart: View {
     @ObservedObject var viewModel: StatisticsViewModel
-    private let size: CGFloat = 180
+    private let size: CGFloat = 320
     
     var body: some View {
         VStack {
@@ -102,7 +93,7 @@ private struct AnswersPieChart: View {
                 VStack {
                     Text("\(Int(viewModel.correctAnswersRatio * 100))%")
                         .font(.title.bold())
-                    Text("правильно")
+                    Text(LocalizedStringKey("correctly"))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -110,9 +101,10 @@ private struct AnswersPieChart: View {
             .frame(width: size, height: size)
             
             HStack(spacing: 20) {
-                LegendBadge(color: .green, title: "Правильные", count: viewModel.stats.correctAnswers)
-                LegendBadge(color: .red, title: "Ошибки", count: viewModel.stats.questionsAnswered - viewModel.stats.correctAnswers)
+                LegendBadge(color: .green, title: "right", count: viewModel.stats.correctAnswers)
+                LegendBadge(color: .red, title: "wrong", count: viewModel.stats.questionsAnswered - viewModel.stats.correctAnswers)
             }
+            .padding(.top, 10)
         }
         .padding()
         .background(Color(.systemBackground))

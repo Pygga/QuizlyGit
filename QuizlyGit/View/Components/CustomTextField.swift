@@ -18,7 +18,6 @@ struct CustomTextField: View {
         self.isSecure = isSecure
         self.title = title
         self._text = text
-//        self._isTyping = isTyping
         self.isSecureField = isSecure
     }
     
@@ -84,8 +83,3 @@ struct CustomTextField: View {
             }
     }
 }
-
-//#Preview {
-//    CustomTextField(isSecure: false, title: "Email", text: .constant(""))
-//    CustomTextField(isSecure: true, title: "Password", text: .constant(""))
-//}

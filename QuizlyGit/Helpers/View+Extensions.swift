@@ -54,3 +54,57 @@ extension GameResults {
         totalQuestions - correctAnswers
     }
 }
+
+// MARK: - Цветовая схема
+extension Color {
+    static let background = Color(.systemBackground)
+    static let secondaryBackground = Color(.secondarySystemBackground)
+    static let primaryText = Color(.label)
+    static let secondaryText = Color(.secondaryLabel)
+    static let cardBackground = Color(.tertiarySystemBackground)
+    static let cardBorder = Color(.separator).opacity(0.3)
+    static let accentColor = Color.blue
+    
+    static let blueGradient = LinearGradient(
+        colors: [
+            Color(.sRGB, red: 0.3686, green: 0.5059, blue: 0.9569),
+            Color(.sRGB, red: 0.2510, green: 0.4039, blue: 0.8392)
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+
+    static let greenGradient = LinearGradient(
+        colors: [
+            Color(.sRGB, red: 0.4275, green: 0.8392, blue: 0.6275),
+            Color(.sRGB, red: 0.2941, green: 0.7490, blue: 0.5255)
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+
+    static let redGradient = LinearGradient(
+        colors: [
+            Color(.sRGB, red: 1.0000, green: 0.4824, blue: 0.4824),
+            Color(.sRGB, red: 0.9020, green: 0.3529, blue: 0.3529)
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+}
+
+// Расширение для безопасного доступа к элементам массива
+extension Collection {
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+
+// Расширение для преобразования числа в порядковое строковое представление
+extension Int {
+    var ordinalString: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .ordinal
+        return formatter.string(from: NSNumber(value: self)) ?? ""
+    }
+}

@@ -9,38 +9,39 @@ import SwiftUI
 
 struct ResultsView: View {
     let results: GameResults
+    @EnvironmentObject var localization: LocalizationManager
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Результаты теста")
+            Text(LocalizedStringKey("results_title"))
                 .font(.largeTitle)
                 .padding(.bottom, 20)
             
             VStack(spacing: 15) {
                 ResultRow(
-                    title: "Правильные ответы",
+                    title: "correct_answers",
                     value: "\(results.correctAnswers)/\(results.totalQuestions)",
                     systemImage: "checkmark.circle.fill",
                     color: .green
                 )
                 
                 ResultRow(
-                    title: "Затраченное время",
+                    title: "time_spent",
                     value: formattedTime(results.totalTime),
                     systemImage: "clock.fill",
                     color: .blue
                 )
                 
                 ResultRow(
-                    title: "Использовано подсказок",
+                    title: "hints_used",
                     value: "\(results.usedHints)",
                     systemImage: "lightbulb.fill",
                     color: .orange
                 )
                 
                 ResultRow(
-                    title: "Итоговый счет",
+                    title: "total_score",
                     value: "\(results.finalScore)",
                     systemImage: "star.fill",
                     color: .purple
@@ -50,11 +51,10 @@ struct ResultsView: View {
             .background(Color(.systemBackground))
             .cornerRadius(15)
             .shadow(radius: 5)
-            
             Spacer()
             
             Button(action: { presentationMode.wrappedValue.dismiss() }) {
-                Text("Вернуться на главную")
+                Text(LocalizedStringKey("back_to_home"))
             }
             .padding()
             .frame(maxWidth: .infinity)
@@ -90,6 +90,8 @@ struct ResultsView: View {
         }
         .padding()
         .navigationBarHidden(true)
+        //Для смены локализации
+        .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
     
     private func formattedTime(_ seconds: Int) -> String {

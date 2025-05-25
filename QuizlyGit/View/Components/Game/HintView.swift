@@ -12,58 +12,75 @@ struct HintView: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-            VStack(spacing: 20) {
-                
-                Image(systemName: "lightbulb")
-                    .font(.title)
-                    .foregroundStyle(.white)
-                    .frame(width: 65, height: 65)
-                    .background(.gitOrange.gradient, in: .circle)
-                    .background{
-                        Circle()
-                            .stroke(.background, lineWidth: 8)
-                    }
-                HStack {
-                    Text("Подсказка")
+        ZStack {
+            Color.black.opacity(0.4)
+                .ignoresSafeArea()
+                .onTapGesture { dismiss() }
+                .opacity(isPresented ? 1 : 0)
+                .animation(.easeInOut, value: isPresented)
+            
+            if isPresented {
+                VStack(spacing: 20) {
+                    
+                    Image(systemName: "lightbulb")
+                        .font(.title)
+                        .foregroundStyle(.white)
+                        .frame(width: 65, height: 65)
+                        .background(.gitOrange.gradient, in: .circle)
+                        .background{
+                            Circle()
+                                .stroke(.background, lineWidth: 8)
+                        }
+//                    HStack {
+//                        Text("Подсказка")
+//                            .font(.title3.bold())
+//                        
+//                        Spacer()
+//                        
+//                    }
+                    
+                    Text(hint.text)
                         .font(.title3.bold())
-                    
-                    Spacer()
-                    
-                }
-                
-                Text(hint.text)
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .padding(.vertical, 4)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                        .padding(.vertical, 4)
 
-                HStack{
-                    if let url = URL(string: hint.link) {
-                        Link("Документация", destination: url)
-                            .buttonStyle(.borderedProminent)
-                            .tint(.gitYellow)
+                    HStack{
+                        if let url = URL(string: hint.link) {
+                            Link("Документация", destination: url)
+                                .buttonStyle(.borderedProminent)
+                                .tint(.gitYellow)
+                        }
+                        
+                        Button(action: { isPresented = false }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .foregroundColor(.red)
+                        }
+                        .frame(width: 25, height: 25, alignment: .topTrailing)
+                        .padding(.leading, 15)
                     }
-                    
-                    Button(action: { isPresented = false }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .foregroundColor(.red)
-                    }
-                    .frame(width: 25, height: 25, alignment: .topTrailing)
-                    .padding(.leading, 15)
+                    .padding(.bottom, 15)
+                    .padding(.horizontal, 50)
                 }
+
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.background)
+                        .shadow(radius: 10)
+                )
+                .padding()
+                .transition(.scale.combined(with: .opacity))
+                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isPresented)
             }
-        .padding([.horizontal, .vertical], 15)
-        .background{
-            RoundedRectangle(cornerRadius: 20)
-                .fill(.background)
-                .padding(.top, 30)
         }
-
-        .frame(maxWidth: 310, maxHeight: 400)
-        .shadow(radius: 10)
-        .compositingGroup()
-        .transition(.move(edge: .bottom))
-        .animation(.easeInOut, value: isPresented)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+    }
+    
+    private func dismiss() {
+        withAnimation {
+            isPresented = false
+        }
     }
 }

@@ -14,7 +14,7 @@ class Question: Identifiable, Codable{
     let answers: [String]
     let correctAnswerIndex: Int // 0
     let hint: Hint
-    let category: String // Новая добавленная тема (например: "Git Basics", "Branches")
+    let category: String
     
     init(id: String = UUID().uuidString, text: String, answers: [String], correctAnswerIndex: Int, hint: Hint, category: String) {
         self.id = id

@@ -8,6 +8,7 @@ import SwiftUI
 
 struct ErrorView: View {
     let message: String
+    @Environment(\.dismiss) private var dismiss
     var retryAction: (() -> Void)? = nil
     
     var body: some View {
@@ -34,13 +35,17 @@ struct ErrorView: View {
                 }
             }
             
-            NavigationLink(destination: ContentView()) {
-                Text("На главную")
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-                    .foregroundColor(.primary)
-                    .cornerRadius(10)
+//            NavigationLink(destination: HomeView()) {
+//                Text("На главную")
+//                    .padding()
+//                    .background(Color.gray.opacity(0.2))
+//                    .foregroundColor(.primary)
+//                    .cornerRadius(10)
+//            }
+            Button("Назад") {
+                dismiss()
             }
+            .buttonStyle(.borderedProminent)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
