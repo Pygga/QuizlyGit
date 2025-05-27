@@ -37,6 +37,7 @@
 "good_afternoon" = "Добрый день";
 "good_evening" = "Добрый вечер";
 "good_night" = "Доброй ночи";
+"select_category" = "Выберите тему";
 
 /* GameView */
 "question" = "Вопрос";

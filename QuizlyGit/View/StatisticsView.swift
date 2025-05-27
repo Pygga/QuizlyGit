@@ -29,7 +29,7 @@ struct StatisticsView: View {
             }
             .padding()
         }
-        .background(Color(.systemGroupedBackground))
+        .background(.themeBG)
         .navigationTitle(LocalizedStringKey("statistics"))
         .onAppear { viewModel.loadData() }
         .environment(\.locale, .init(identifier: localization.currentLanguage))

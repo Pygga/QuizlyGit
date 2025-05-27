@@ -67,10 +67,9 @@
 		B22812CE2DE3802400CDBF1E /* HintButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812CD2DE3802400CDBF1E /* HintButton.swift */; };
 		B22812D02DE3804800CDBF1E /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812CF2DE3804800CDBF1E /* NextButton.swift */; };
 		B22812D22DE3806E00CDBF1E /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812D12DE3806E00CDBF1E /* TimeView.swift */; };
+		B22812D42DE3882900CDBF1E /* ScaleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812D32DE3882900CDBF1E /* ScaleStyle.swift */; };
 		B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23F38102DC607C200FD440B /* QuizConfig.swift */; };
 		B2594A082DC2725400ECA24A /* HomeObserved.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A072DC2725400ECA24A /* HomeObserved.swift */; };
-		B2594A0A2DC29D3A00ECA24A /* QuestionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A092DC29D3A00ECA24A /* QuestionCardView.swift */; };
-		B2594A0C2DC29D9000ECA24A /* AnswerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A0B2DC29D9000ECA24A /* AnswerButtonView.swift */; };
 		B2594A0E2DC3612800ECA24A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A0D2DC3612800ECA24A /* GameViewModel.swift */; };
 		B2594A122DC3923B00ECA24A /* ResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A112DC3923B00ECA24A /* ResultRow.swift */; };
 		B2594A162DC3929700ECA24A /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A152DC3929700ECA24A /* ErrorView.swift */; };
@@ -137,10 +136,9 @@
 		B22812CD2DE3802400CDBF1E /* HintButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintButton.swift; sourceTree = "<group>"; };
 		B22812CF2DE3804800CDBF1E /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		B22812D12DE3806E00CDBF1E /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
+		B22812D32DE3882900CDBF1E /* ScaleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleStyle.swift; sourceTree = "<group>"; };
 		B23F38102DC607C200FD440B /* QuizConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizConfig.swift; sourceTree = "<group>"; };
 		B2594A072DC2725400ECA24A /* HomeObserved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeObserved.swift; sourceTree = "<group>"; };
-		B2594A092DC29D3A00ECA24A /* QuestionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCardView.swift; sourceTree = "<group>"; };
-		B2594A0B2DC29D9000ECA24A /* AnswerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerButtonView.swift; sourceTree = "<group>"; };
 		B2594A0D2DC3612800ECA24A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		B2594A112DC3923B00ECA24A /* ResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRow.swift; sourceTree = "<group>"; };
 		B2594A152DC3929700ECA24A /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -306,8 +304,6 @@
 				B22812992DDC98D000CDBF1E /* CategorySelectionView.swift */,
 				B22812972DDC986B00CDBF1E /* HomeCardView.swift */,
 				B22812952DCCCB6700CDBF1E /* TestSettingsView.swift */,
-				B2594A092DC29D3A00ECA24A /* QuestionCardView.swift */,
-				B2594A0B2DC29D9000ECA24A /* AnswerButtonView.swift */,
 				B2594A112DC3923B00ECA24A /* ResultRow.swift */,
 				B2594A152DC3929700ECA24A /* ErrorView.swift */,
 				B2594A1E2DC3C51500ECA24A /* HintView.swift */,
@@ -328,6 +324,7 @@
 		B22812C12DE37E1C00CDBF1E /* Style */ = {
 			isa = PBXGroup;
 			children = (
+				B22812D32DE3882900CDBF1E /* ScaleStyle.swift */,
 				B22812C22DE37E2500CDBF1E /* MorphButtonStyle.swift */,
 				B22812BB2DE37C8000CDBF1E /* ScaleButtonStyle.swift */,
 			);
@@ -501,6 +498,7 @@
 				B22812922DCBE72400CDBF1E /* LeaderboardViewModel.swift in Sources */,
 				B2E59F612DC226EB00E52208 /* Question.swift in Sources */,
 				B2167F842DC0F52400C1E216 /* FirestoreService.swift in Sources */,
+				B22812D42DE3882900CDBF1E /* ScaleStyle.swift in Sources */,
 				B22812862DCBA34F00CDBF1E /* GitRank.swift in Sources */,
 				B22812C82DE37F9600CDBF1E /* AnswersGrid.swift in Sources */,
 				B22812BE2DE37D7700CDBF1E /* ImagePicker.swift in Sources */,
@@ -531,9 +529,7 @@
 				B22812C62DE37F6900CDBF1E /* AnswerCard.swift in Sources */,
 				B228127C2DC6634500CDBF1E /* SettingsView.swift in Sources */,
 				B2E59F542DC14B3600E52208 /* AuthView.swift in Sources */,
-				B2594A0C2DC29D9000ECA24A /* AnswerButtonView.swift in Sources */,
 				B228127E2DCA7D7200CDBF1E /* AppSettings.swift in Sources */,
-				B2594A0A2DC29D3A00ECA24A /* QuestionCardView.swift in Sources */,
 				B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */,
 				B22812982DDC986B00CDBF1E /* HomeCardView.swift in Sources */,
 				B22812C02DE37DED00CDBF1E /* NavigationCard.swift in Sources */,

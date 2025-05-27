@@ -15,14 +15,18 @@ class Question: Identifiable, Codable{
     let correctAnswerIndex: Int // 0
     let hint: Hint
     let category: String
+    let codeExample: String?
     
-    init(id: String = UUID().uuidString, text: String, answers: [String], correctAnswerIndex: Int, hint: Hint, category: String) {
+    init(id: String = UUID().uuidString, text: String, answers: [String], correctAnswerIndex: Int, hint: Hint, category: String,
+         codeExample: String? = nil
+    ) {
         self.id = id
         self.text = text
         self.answers = answers
         self.correctAnswerIndex = correctAnswerIndex
         self.hint = hint
         self.category = category
+        self.codeExample = codeExample
     }
     
     init?(snap: QueryDocumentSnapshot){
@@ -33,7 +37,9 @@ class Question: Identifiable, Codable{
               let hintText = data["hint"] as? [String: Any],
               let categoryText = data["category"] as? String,
               let hintLink = hintText["link"] as? String,
-              let hintTextValue = hintText["text"] as? String else {return nil}
+              let hintTextValue = hintText["text"] as? String,
+              let codeExample = data["codeExample"] as? String
+        else {return nil}
         self.text = text
         self.answers = answersArray
         self.answers.indices.forEach { index in
@@ -45,6 +51,7 @@ class Question: Identifiable, Codable{
         self.hint = Hint(text: hintTextValue, link: hintLink)
         self.id = snap.documentID
         self.category = categoryText
+        self.codeExample = codeExample
     }
 }
 

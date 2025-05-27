@@ -38,7 +38,7 @@ struct AnswersGrid: View {
         guard let originalIndex = question.answers.firstIndex(of: question.answers[index]) else {
             return false
         }
-        return originalIndex == question.correctAnswerIndex
+        return originalIndex == selectedIndex
     }
     
     private func handleSelection(at index: Int) {
@@ -48,6 +48,4 @@ struct AnswersGrid: View {
             onSelect(index)
         }
     }
-
-    
 }

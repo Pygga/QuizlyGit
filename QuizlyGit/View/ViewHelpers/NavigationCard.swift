@@ -49,13 +49,13 @@ struct NavigationCard: View {
             .frame(height: 120)
             .padding(20)
             .background(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 20)
                     .fill(Color.cardBackground)
                     .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 3)
                 
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 20)
                     .stroke(Color.cardBorder, lineWidth: 1)
             )
             .scaleEffect(isPressed ? 0.98 : 1)

@@ -21,6 +21,7 @@ class GameViewModel: ObservableObject {
     @Published var usedHints: Int = 0
     @Published var correctAnswers: Int = 0
     @Published var incorrectAnswers: Int = 0
+    @Published var isFirstTap: Bool = true
     private let questionStorage = QuestionStorage.shared //
     // MARK: - Game Configuration
     private var config: QuizConfig
@@ -108,6 +109,7 @@ class GameViewModel: ObservableObject {
     
     private func isAnswerCorrect(_ index: Int) -> Bool {
         if questions[currentQuestionIndex].correctAnswerIndex == index{
+            print(questions[currentQuestionIndex])
             return true
         } else {
             return false
@@ -150,11 +152,7 @@ class GameViewModel: ObservableObject {
         timer?.cancel()
         selectedAnswerIndex = -1 // Специальное значение для обозначения истечения времени
         moveToNextQuestion()
-//        if config.stopOnWrongAnswer {
-//            endGame()
-//        } else {
-//            moveToNextQuestion()
-//        }
+        isFirstTap = true
     }
     
     // MARK: - Game Completion

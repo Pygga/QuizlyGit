@@ -9,6 +9,7 @@ import SwiftUI
 struct CategorySelectionView: View {
     @State var observed: HomeView.Observed
     let onSelect: (String) -> Void
+    @EnvironmentObject var localization: LocalizationManager
     
     var body: some View {
         NavigationView {
@@ -24,8 +25,9 @@ struct CategorySelectionView: View {
                 }
                 .padding(20)
             }
-            .navigationTitle("Выберите категорию")
+            .navigationTitle(LocalizedStringKey("select_category"))
             .navigationBarTitleDisplayMode(.inline)
+            .environment(\.locale, .init(identifier: localization.currentLanguage))
         }
     }
 }
@@ -52,23 +54,14 @@ struct CategoryCard: View {
             }
             .padding(16)
             .frame(maxWidth: .infinity)
-            .background(Color(.systemBackground))
-            .cornerRadius(12)
+            .background(.themeBG)
+            .cornerRadius(16)
             .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: 16)
                     .stroke(Color(.systemGray5), lineWidth: 1)
             )
         }
         .buttonStyle(ScaleStyle())
-    }
-}
-
-// Стиль кнопки с анимацией нажатия
-struct ScaleStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.97 : 1)
-            .animation(.easeInOut(duration: 0.15), value: configuration.isPressed)
     }
 }

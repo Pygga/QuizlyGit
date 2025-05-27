@@ -108,3 +108,20 @@ extension Int {
         return formatter.string(from: NSNumber(value: self)) ?? ""
     }
 }
+
+extension String {
+    func ranges(of substring: String) -> [Range<String.Index>] {
+        var ranges: [Range<String.Index>] = []
+        var searchStartIndex = startIndex
+        
+        while let range = range(
+            of: substring,
+            options: .caseInsensitive,
+            range: searchStartIndex..<endIndex
+        ) {
+            ranges.append(range)
+            searchStartIndex = range.upperBound
+        }
+        return ranges
+    }
+}

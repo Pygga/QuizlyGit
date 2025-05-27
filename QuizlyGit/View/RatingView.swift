@@ -68,8 +68,11 @@ private struct PodiumView: View {
                 .fill(colorScheme == .dark ? .themeBG : .white)
                 .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 10)
                 .frame(height: 360)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color(.systemGray3), lineWidth: 1)
+                )
                 .padding(.horizontal, 10)
-//                .clipped()  Обрезаем все выходящее за границы
             
             // Контент подиума
             HStack(alignment: .bottom, spacing: 0) {
@@ -154,7 +157,7 @@ private struct PodiumView: View {
                 Image(systemName: "crown.fill")
                     .font(.system(size: 28))
                     .foregroundColor(.yellow)
-                    .offset(y: -35)
+                    .offset(y: -30)
                     .shadow(color: .yellow.opacity(0.5), radius: 10, x: 0, y: 0)
             }
         }

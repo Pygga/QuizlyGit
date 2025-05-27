@@ -81,6 +81,7 @@ struct SettingsView: View {
                     }
                 }
             }
+            .background(.themeBG)
             .navigationTitle(LocalizedStringKey("title_settings"))
             .task {await viewModel.loadData()
                 viewModel.saveSettings()
