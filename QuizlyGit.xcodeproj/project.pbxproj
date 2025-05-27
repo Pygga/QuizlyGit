@@ -68,6 +68,8 @@
 		B22812D02DE3804800CDBF1E /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812CF2DE3804800CDBF1E /* NextButton.swift */; };
 		B22812D22DE3806E00CDBF1E /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812D12DE3806E00CDBF1E /* TimeView.swift */; };
 		B22812D42DE3882900CDBF1E /* ScaleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812D32DE3882900CDBF1E /* ScaleStyle.swift */; };
+		B22812D82DE5895F00CDBF1E /* ShuffledQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812D72DE5895F00CDBF1E /* ShuffledQuestion.swift */; };
+		B22812DA2DE5A69700CDBF1E /* CodeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812D92DE5A69700CDBF1E /* CodeBlock.swift */; };
 		B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23F38102DC607C200FD440B /* QuizConfig.swift */; };
 		B2594A082DC2725400ECA24A /* HomeObserved.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A072DC2725400ECA24A /* HomeObserved.swift */; };
 		B2594A0E2DC3612800ECA24A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A0D2DC3612800ECA24A /* GameViewModel.swift */; };
@@ -137,6 +139,8 @@
 		B22812CF2DE3804800CDBF1E /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		B22812D12DE3806E00CDBF1E /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		B22812D32DE3882900CDBF1E /* ScaleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleStyle.swift; sourceTree = "<group>"; };
+		B22812D72DE5895F00CDBF1E /* ShuffledQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffledQuestion.swift; sourceTree = "<group>"; };
+		B22812D92DE5A69700CDBF1E /* CodeBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlock.swift; sourceTree = "<group>"; };
 		B23F38102DC607C200FD440B /* QuizConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizConfig.swift; sourceTree = "<group>"; };
 		B2594A072DC2725400ECA24A /* HomeObserved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeObserved.swift; sourceTree = "<group>"; };
 		B2594A0D2DC3612800ECA24A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
@@ -282,6 +286,7 @@
 		B2167F7E2DC0EFC800C1E216 /* Identifiaeble */ = {
 			isa = PBXGroup;
 			children = (
+				B22812D72DE5895F00CDBF1E /* ShuffledQuestion.swift */,
 				B22812732DC635D700CDBF1E /* Category.swift */,
 				B2167F7F2DC0EFFF00C1E216 /* Profile.swift */,
 				B2E59F602DC226EB00E52208 /* Question.swift */,
@@ -324,6 +329,7 @@
 		B22812C12DE37E1C00CDBF1E /* Style */ = {
 			isa = PBXGroup;
 			children = (
+				B22812D92DE5A69700CDBF1E /* CodeBlock.swift */,
 				B22812D32DE3882900CDBF1E /* ScaleStyle.swift */,
 				B22812C22DE37E2500CDBF1E /* MorphButtonStyle.swift */,
 				B22812BB2DE37C8000CDBF1E /* ScaleButtonStyle.swift */,
@@ -492,6 +498,7 @@
 				B2E59F562DC14BDF00E52208 /* View+Extensions.swift in Sources */,
 				B2E59F522DC14B2100E52208 /* HomeView.swift in Sources */,
 				B22812A22DE0B5D800CDBF1E /* StatsGrid.swift in Sources */,
+				B22812DA2DE5A69700CDBF1E /* CodeBlock.swift in Sources */,
 				B2E59F5F2DC21D5400E52208 /* AuthObserved.swift in Sources */,
 				B2594A1F2DC3C51500ECA24A /* HintView.swift in Sources */,
 				B22812742DC635D700CDBF1E /* Category.swift in Sources */,
@@ -532,6 +539,7 @@
 				B228127E2DCA7D7200CDBF1E /* AppSettings.swift in Sources */,
 				B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */,
 				B22812982DDC986B00CDBF1E /* HomeCardView.swift in Sources */,
+				B22812D82DE5895F00CDBF1E /* ShuffledQuestion.swift in Sources */,
 				B22812C02DE37DED00CDBF1E /* NavigationCard.swift in Sources */,
 				B228129C2DDCD5F400CDBF1E /* ProgressBarView.swift in Sources */,
 				B22812782DC6631500CDBF1E /* ProfileView.swift in Sources */,

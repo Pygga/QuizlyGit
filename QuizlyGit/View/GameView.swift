@@ -13,46 +13,19 @@ struct GameView: View {
     @EnvironmentObject var localization: LocalizationManager
     @State private var showExitConfirmation = false
     var body: some View {
-        ZStack{
+        ZStack {
             Color(.systemBackground)
                 .ignoresSafeArea()
-            Group {
-                switch viewModel.gameState {
-                    
-                case .loading:
-                    ProgressView("Загрузка вопросов...")
-                        .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(.secondary)
-                    
-                case .inProgress:
-                    gameContent
-                    
-                case .finished(let results):
-                    ResultsView(results: results)
-                        .environment(\.locale, .init(identifier: localization.currentLanguage))
-                    
-                case .error(let message):
-                    ErrorView(message: message)
-                        .environment(\.locale, .init(identifier: localization.currentLanguage))
+            
+            mainContent
+                .alert("Выход из теста", isPresented: $showExitConfirmation) {
+                    Button("Отмена", role: .cancel) {}
+                    Button("Выйти", role: .destructive) { dismiss() }
+                } message: {
+                    Text("Весь прогресс будет потерян. Вы уверены?")
                 }
-                // Модальное окно подсказки
-                if viewModel.showHint {
-                    
-                    HintView(
-                        hint: viewModel.currentQuestion.hint,
-                        isPresented: $viewModel.showHint
-                    )
-                    .environment(\.locale, .init(identifier: localization.currentLanguage))
-                    .zIndex(1)
-                }
-            }
-        
-            .alert("Выход из теста", isPresented: $showExitConfirmation) {
-                Button("Отмена", role: .cancel) {}
-                Button("Выйти", role: .destructive) { dismiss() }
-            } message: {
-                Text("Весь прогресс будет потерян. Вы уверены?")
-            }
+            
+            hintOverlay
         }
     }
     
@@ -129,11 +102,53 @@ struct GameView: View {
         .environment(\.locale, .init(identifier: localization.currentLanguage))
         .padding(.top, 24)
     }
+    
+    private var loadingView: some View {
+        ProgressView("Загрузка вопросов...")
+            .font(.system(size: 16, weight: .regular))
+            .foregroundColor(.secondary)
+    }
+    
+    @ViewBuilder
+    private var mainContent: some View {
+        switch viewModel.gameState {
+        case .loading:
+            loadingView
+        case .inProgress:
+            gameContent
+        case .finished(let results):
+            resultsView(results: results)
+        case .error(let message):
+            errorView(message: message)
+        }
+    }
+    
+    @ViewBuilder
+    private var hintOverlay: some View {
+        if viewModel.showHint {
+            HintView(
+                hint: viewModel.currentQuestion.hint,
+                isPresented: $viewModel.showHint
+            )
+            .environment(\.locale, .init(identifier: localization.currentLanguage))
+            .zIndex(1)
+        }
+    }
+    
+    private func resultsView(results: GameResults) -> some View {
+        ResultsView(results: results)
+            .environment(\.locale, .init(identifier: localization.currentLanguage))
+    }
+    
+    private func errorView(message: String) -> some View {
+        ErrorView(message: message)
+            .environment(\.locale, .init(identifier: localization.currentLanguage))
+    }
 }
 
 // MARK: - Компоненты
 struct QuestionCard: View {
-    let question: Question
+    let question: ShuffledQuestion
     @EnvironmentObject var localization: LocalizationManager
     
     var body: some View {
@@ -142,7 +157,7 @@ struct QuestionCard: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
             
-            Text(question.text)
+            Text(question.original.text)
                 .font(.system(size: 18, weight: .medium))
             
             if let codeExample = question.codeExample {
@@ -154,83 +169,5 @@ struct QuestionCard: View {
         .background(Color(.secondarySystemBackground))
         .cornerRadius(12)
         .environment(\.locale, .init(identifier: localization.currentLanguage))
-    }
-}
-
-struct CodeBlock: View {
-    let text: String
-    
-    var body: some View {
-        if text.isEmpty == false {
-            VStack(alignment: .leading) {
-                Text(highlightSyntax(text))
-                    .font(.system(.caption, design: .monospaced))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-            }
-            .background(Color(.systemGray6))
-            .cornerRadius(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color(.systemGray4), lineWidth: 1)
-            )
-        }
-    }
-    
-    private func highlightSyntax(_ code: String) -> AttributedString {
-//        let keywords = ["git", "checkout", "branch", "commit", "merge", "stash", "push", "pull", "reset"]
-        let syntaxRules: [(pattern: String, color: Color)] = [
-            ( #"(git\s+\w+)"#, .blue ), // Команды git
-            ( #"\B--\w+"#, .orange ), // Длинные флаги
-            ( #"\B-\w"#, .purple ), // Короткие флаги
-            ( #"<[^>]+>"#, .green ), // Параметры
-            ( #"\b[0-9a-f]{7,40}\b"#, .red ),// Хеши коммитов
-//            (#"https?://\S+"#, .blue.underline), // URL
-            ( #""(?:\\"|[^"])*""#, .yellow ) // Строковые литералы
-        ]
-        var attributedString = AttributedString(code)
-//        attributedString[start..<end].foregroundColor = colorScheme == .dark ? rule.color : rule.color.opacity(0.8)
-//        for rule in syntaxRules {
-//            let ranges = code.ranges(
-//                of: rule.pattern,
-//                options: .regularExpression,
-//                locale: nil
-//            )
-//            
-//            for range in ranges {
-//                guard let attrRange = Range(range, in: attributedString) else { continue }
-//                attributedString[attrRange].foregroundColor = rule.color
-//            }
-//        }
-        
-        for rule in syntaxRules {
-            guard let regex = try? NSRegularExpression(pattern: rule.pattern) else { continue }
-            
-            let matches = regex.matches(
-                in: code,
-                range: NSRange(code.startIndex..., in: code)
-            )
-            
-            for match in matches {
-                guard let codeRange = Range(match.range, in: code) else { continue }
-                
-                let startOffset = code.distance(from: code.startIndex, to: codeRange.lowerBound)
-                let endOffset = code.distance(from: code.startIndex, to: codeRange.upperBound)
-                
-                guard let start = attributedString.characters.index(
-                    attributedString.startIndex,
-                    offsetBy: startOffset,
-                    limitedBy: attributedString.endIndex
-                ),
-                      let end = attributedString.characters.index(
-                        start,
-                        offsetBy: endOffset - startOffset,
-                        limitedBy: attributedString.endIndex
-                      ) else { continue }
-                
-                attributedString[start..<end].foregroundColor = rule.color
-            }
-        }
-        return attributedString
     }
 }

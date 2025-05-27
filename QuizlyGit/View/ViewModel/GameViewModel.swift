@@ -12,6 +12,7 @@ import FirebaseFirestore
 class GameViewModel: ObservableObject {
     // MARK: - Published Properties
     @Published var questions: [Question] = []
+    @Published var shuffledQuestions: [ShuffledQuestion] = []
     @Published var currentQuestionIndex: Int = 0
     @Published var timeRemaining: Int = 30
     @Published var selectedAnswerIndex: Int?
@@ -55,6 +56,21 @@ class GameViewModel: ObservableObject {
         }
     private func setupGame(with questions: [Question]) {
         self.questions = questions
+        
+        self.shuffledQuestions = questions.map { question in
+            let shuffledAnswers = question.answers.shuffled()
+            let correctAnswer = question.answers[question.correctAnswerIndex]
+            guard let correctIndex = shuffledAnswers.firstIndex(of: correctAnswer) else {
+                fatalError("Правильный ответ отсутствует в перемешанных ответах")
+            }
+            return ShuffledQuestion(
+                id: question.id,
+                original: question,
+                answers: shuffledAnswers,
+                correctAnswerIndex: correctIndex
+            )
+        }
+        
         self.timeRemaining = config.timePerQuestion // Используем настройку времени
         startTimer()
         gameState = .inProgress
@@ -108,12 +124,7 @@ class GameViewModel: ObservableObject {
     }
     
     private func isAnswerCorrect(_ index: Int) -> Bool {
-        if questions[currentQuestionIndex].correctAnswerIndex == index{
-            print(questions[currentQuestionIndex])
-            return true
-        } else {
-            return false
-        }
+        index == currentQuestion.correctAnswerIndex
     }
     
     // MARK: - Score Calculation
@@ -178,7 +189,7 @@ class GameViewModel: ObservableObject {
 }
 
 extension GameViewModel {
-    var currentQuestion: Question {
-        questions[currentQuestionIndex]
+    var currentQuestion: ShuffledQuestion {
+        shuffledQuestions[currentQuestionIndex]
     }
 }

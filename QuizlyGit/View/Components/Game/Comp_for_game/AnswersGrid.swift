@@ -7,13 +7,13 @@
 import SwiftUI
 
 struct AnswersGrid: View {
-    let question: Question
+    let question: ShuffledQuestion
     @Binding var selectedIndex: Int?
     let onSelect: (Int) -> Void
     @State private var shuffledAnswers: [String]
     @EnvironmentObject var localization: LocalizationManager
     
-    init(question: Question, selectedIndex: Binding<Int?>, onSelect: @escaping (Int) -> Void) {
+    init(question: ShuffledQuestion, selectedIndex: Binding<Int?>, onSelect: @escaping (Int) -> Void) {
         self.question = question
         self._selectedIndex = selectedIndex
         self.onSelect = onSelect
@@ -21,11 +21,11 @@ struct AnswersGrid: View {
     }
     var body: some View {
         LazyVGrid(columns: [GridItem(.flexible())], spacing: 12) {
-            ForEach(Array(shuffledAnswers.enumerated()), id: \.offset) { index, answer in
+            ForEach(Array(question.answers.enumerated()), id: \.offset) { index, answer in
                 AnswerCard(
                     text: answer,
                     isSelected: selectedIndex == index,
-                    isCorrect: isCorrectAnswer(index),
+                    isCorrect: index == question.correctAnswerIndex,
                     isRevealed: selectedIndex != nil
                 ) {
                     handleSelection(at: index)
