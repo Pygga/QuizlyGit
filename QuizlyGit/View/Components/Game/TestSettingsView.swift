@@ -19,6 +19,7 @@ struct TestSettingsView: View {
                         HStack{
                             Text(LocalizedStringKey("number_of_questions"))
                             Text("\(observed.questionsCount)")
+                                .padding(.leading, 5)
                         }
                     }
                     
@@ -32,7 +33,7 @@ struct TestSettingsView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .frame(height: 410)
+            .frame(height: 310)
             .background(.themeBG)
             .clipShape(.rect(cornerRadius: 30))
             .padding(.horizontal, 15)

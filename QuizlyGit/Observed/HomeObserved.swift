@@ -31,7 +31,7 @@ extension HomeView{
         
         var currentConfig: QuizConfig {
             QuizConfig(
-                categories: Array(selectedCategories),
+                categories: Array(selectedCategories).isEmpty ? ["Git Basics","Advanced", "Branching", "Remote", "Undo"] : Array(selectedCategories),
                 showHints: showHints,
                 timePerQuestion: timePerQuestion,
                 questionsCount: questionsCount,

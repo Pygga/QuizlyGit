@@ -47,13 +47,13 @@ struct HomeView: View {
                         case .home:
                             NavigationStack(path: $navigationPath){
                                 mainContentView
-                                    .background(
-                                        LinearGradient(
-                                            colors: [.background, .secondaryBackground],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    )
+//                                    .background(
+//                                        LinearGradient(
+//                                            colors: [.background, .secondaryBackground],
+//                                            startPoint: .topLeading,
+//                                            endPoint: .bottomTrailing
+//                                        )
+//                                    )
                                     .navigationDestination(for: String.self) { destination in
                                         switch destination {
                                         case "category":
@@ -69,11 +69,8 @@ struct HomeView: View {
                                                 navigationPath.append("game")
                                             }
                                         case "game":
-                                            
                                             GameView(viewModel: GameViewModel(config: gameConfig ?? observed.currentConfig),onExit: { navigationPath.removeLast()})
                                                 .navigationBarHidden(true)
-                                            
-                                            
                                         default:
                                             EmptyView()
                                         }
@@ -109,7 +106,6 @@ struct HomeView: View {
             Rectangle()
                 .fill(.darkGrey)
         }
-        
     }
     
     private var mainContentView: some View {
@@ -159,8 +155,10 @@ struct HomeView: View {
                                     questionsCount: QuestionStorage.shared.allQuestions.count,
                                     stopOnWrongAnswer: false
                                 )
-//                                activeGameView = true
-                                navigationPath.append("game")
+//                                if gameConfig != nil {
+                                    navigationPath.append("game")
+//                                }
+                                
                             }
                     )
                     NavigationCard(
@@ -176,21 +174,26 @@ struct HomeView: View {
                             endPoint: .bottomTrailing
                         ),
                         action: {
-                                gameConfig = QuizConfig(
-                                    categories: ["Git Basics","Advanced", "Branching", "Remote", "Undo"],
-                                    showHints: observed.showHints,
-                                    timePerQuestion: observed.timePerQuestion,
-                                    questionsCount: QuestionStorage.shared.allQuestions.count,
-                                    stopOnWrongAnswer: true
-                                )
+                            
+                            gameConfig = QuizConfig(
+                                categories: ["Git Basics","Advanced", "Branching", "Remote", "Undo"],
+                                showHints: observed.showHints,
+                                timePerQuestion: observed.timePerQuestion,
+                                questionsCount: QuestionStorage.shared.allQuestions.count,
+                                stopOnWrongAnswer: true
+                            )
+                        
+
+//                        if gameConfig != nil {
                             navigationPath.append("game")
-                            }
+//                        }
+                    }
                     )
                 }
                 .padding(.horizontal)
                 .sheet(isPresented: $showTestSettings) {
                     TestSettingsView(observed: observed)
-                        .presentationDetents([.height(410)])
+                        .presentationDetents([.height(310)])
                         .presentationBackground(.clear)
                 }
             }
@@ -198,7 +201,8 @@ struct HomeView: View {
                 ToolbarItem(placement: .bottomBar) {
                     HStack{
                         Spacer()
-                        Button(action: {gameConfig = observed.currentConfig
+                        Button(action: {
+//                            gameConfig = observed.currentConfig
                             showTestSettings.toggle()}) {
                                 Image(systemName: "gearshape.2.fill")
                                     .foregroundStyle(Color.primary)
@@ -249,21 +253,21 @@ private struct HeaderView: View {
     
     private func getTimeDependentGreeting() -> String {
         let hour = Calendar.current.component(.hour, from: Date())
-        if localization.currentLanguage == "en"{
+//        if localization.currentLanguage == "en"{
             switch hour {
-            case 6..<12: return "Good morning"
-            case 12..<18: return "Good afternoon"
-            case 18..<24: return "Good evening"
-            default: return "Good night"
+            case 6..<12: return "good_morning"
+            case 12..<18: return "good_afternoon"
+            case 18..<24: return "good_evening"
+            default: return "good_night"
             }
-        } else {
-            switch hour {
-            case 6..<12: return "Доброе утро"
-            case 12..<18: return "Добрый день"
-            case 18..<24: return "Добрый вечер"
-            default: return "Доброй ночи"
-            }
-        }
+//        } else {
+//            switch hour {
+//            case 6..<12: return "Доброе утро"
+//            case 12..<18: return "Добрый день"
+//            case 18..<24: return "Добрый вечер"
+//            default: return "Доброй ночи"
+//            }
+//        }
     }
 }
 
