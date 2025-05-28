@@ -35,7 +35,7 @@ struct DetailedStatsView: View {
                        value: "\(viewModel.stats.hintsUsed)")
             }
             .padding()
-            .background(Color(.systemBackground))
+            .background(.colorBG)
             .cornerRadius(12)
             .shadow(radius: 2)
         }

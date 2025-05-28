@@ -23,7 +23,7 @@ struct StatCard: View {
         }
         .frame(maxWidth: .infinity)
         .padding(12)
-        .background(Color(.systemBackground))
+        .background(.colorBG)
         .cornerRadius(8)
         .shadow(color: .black.opacity(0.05), radius: 3)
         .environment(\.locale, .init(identifier: localization.currentLanguage))

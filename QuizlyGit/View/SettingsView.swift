@@ -30,62 +30,65 @@ struct SettingsView: View {
     let userUID = Auth.auth().currentUser?.uid ?? " "
     var body: some View {
         NavigationStack{
-            List{
-                Section(LocalizedStringKey("profile")){
-                    VStack(alignment: .leading){
-                        HStack{
-                            Text(LocalizedStringKey("name"))
-                            Text(": \(viewModel.currentUser.name.isEmpty ? Text(String(format:LocalizationManager.shared.localizedString("not_specified")) ) : Text(viewModel.currentUser.name))")
+//            ScrollView{
+                List{
+                    Section(LocalizedStringKey("profile")){
+                        VStack(alignment: .leading){
+                            HStack{
+                                Text(LocalizedStringKey("name"))
+                                Text(": \(viewModel.currentUser.name.isEmpty ? Text(String(format:LocalizationManager.shared.localizedString("not_specified")) ) : Text(viewModel.currentUser.name))")
+                            }
+                            //Кнопка перехода на экран редактирования профиля
+                            Button{
+                                showProfileView.toggle()
+                            } label: {
+                                Text(LocalizedStringKey("profile_settings"))
+                                    .background{
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .fill(.blue)
+                                            .padding(.top, 30)
+                                    }
+                            }
                         }
-                        //Кнопка перехода на экран редактирования профиля
-                        Button{
-                            showProfileView.toggle()
-                        } label: {
-                            Text(LocalizedStringKey("profile_settings"))
-                                .background{
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .fill(.blue)
-                                        .padding(.top, 30)
-                                }
-                        }
                     }
-                }
-                
-                Section(LocalizedStringKey("app_settings")){
-                    //Выбор языка
-                    Picker(LocalizedStringKey("language"), selection: $localization.currentLanguage) {
-                        Text("Русский").tag("ru")
-                        Text("English").tag("en")
-                    }
-                    .onChange(of: viewModel.settings.language) { newValue in
-                        localization.currentLanguage = newValue
-                        print(viewModel.settings.language)
-                        print("\\\\\\\\\\\\")
-                    }
-                    //Выбор темы
-                    Button(LocalizedStringKey("change_theme")){
-                        changeTheme.toggle()
-                    }.foregroundColor(.primary)
                     
-                }
-                
-                Section(LocalizedStringKey("notifications")){
-                    //Уведомления
-                    Toggle(LocalizedStringKey("receive_notifications"), isOn: $viewModel.settings.notificationsEnabled)
-                        .onChange(of: viewModel.settings.notificationsEnabled) { enabled in
-                        if enabled {
-                            requestNotificationPermission()
-                        } else {
-                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    Section(LocalizedStringKey("app_settings")){
+                        //Выбор языка
+                        Picker(LocalizedStringKey("language"), selection: $localization.currentLanguage) {
+                            Text("Русский").tag("ru")
+                            Text("English").tag("en")
                         }
+                        .onChange(of: viewModel.settings.language) { newValue in
+                            localization.currentLanguage = newValue
+                            print(viewModel.settings.language)
+                            print("\\\\\\\\\\\\")
+                        }
+                        //Выбор темы
+                        Button(LocalizedStringKey("change_theme")){
+                            changeTheme.toggle()
+                        }.foregroundColor(.primary)
+                        
+                    }
+                    
+                    Section(LocalizedStringKey("notifications")){
+                        //Уведомления
+                        Toggle(LocalizedStringKey("receive_notifications"), isOn: $viewModel.settings.notificationsEnabled)
+                            .onChange(of: viewModel.settings.notificationsEnabled) { enabled in
+                                if enabled {
+                                    requestNotificationPermission()
+                                } else {
+                                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                                }
+                            }
                     }
                 }
-            }
-            .background(.themeBG)
-            .navigationTitle(LocalizedStringKey("title_settings"))
-            .task {await viewModel.loadData()
-                viewModel.saveSettings()
-                 }
+                .background(.themeBG)
+                .navigationTitle(LocalizedStringKey("title_settings"))
+                .task {await viewModel.loadData()
+                    viewModel.saveSettings()
+                }
+//            }
+//            .background(.themeBG)
         }
         .preferredColorScheme(userTheme.colorScheme)
         .sheet(isPresented: $changeTheme, content: {

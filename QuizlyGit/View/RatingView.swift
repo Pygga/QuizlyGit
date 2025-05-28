@@ -29,12 +29,6 @@ struct RatingView: View {
     
     private var content: some View {
         ScrollView {
-//            LazyVStack(spacing: 16) {
-//                ForEach(viewModel.users.prefix(3)) { user in
-//                    TopThreeUserView(user: user)
-//                }
-//            }
-            
             // Секция подиума
             PodiumView(users: Array(viewModel.users.prefix(3)))
                 .padding(.vertical, 40)

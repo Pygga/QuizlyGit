@@ -63,7 +63,7 @@ private struct RankCardView: View {
             }
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(.colorBG)
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 5)
         .environment(\.locale, .init(identifier: localization.currentLanguage))
@@ -107,7 +107,7 @@ private struct AnswersPieChart: View {
             .padding(.top, 10)
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(.colorBG)
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.1), radius: 5)
     }

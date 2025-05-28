@@ -63,7 +63,7 @@ extension Color {
     static let secondaryText = Color(.secondaryLabel)
     static let cardBackground = Color(.tertiarySystemBackground)
     static let cardBorder = Color(.separator).opacity(0.3)
-    static let accentColor = Color.blue
+    static let accentColor = Color.gitOrange
     
     static let blueGradient = LinearGradient(
         colors: [

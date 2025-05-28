@@ -41,7 +41,7 @@ struct CustomTextField: View {
                     }
                     Text(title).padding(.horizontal, 5)
                         .frame(height: 10)
-                        .background(.colorBG.opacity(isTyping || !text.isEmpty ? 1 : 0))
+                        .background(.themeBG.opacity(isTyping || !text.isEmpty ? 1 : 0))
                         .foregroundStyle(isTyping ? .gitOrange : Color.primary)
                         .padding(.leading).offset(y: isTyping || !text.isEmpty ? -27 : 0)
                         .onTapGesture {
@@ -70,7 +70,7 @@ struct CustomTextField: View {
                     }
                     Text(title).padding(.horizontal, 5)
                         .frame(height: 10)
-                        .background(.colorBG.opacity(isTyping || !text.isEmpty ? 1 : 0))
+                        .background(.themeBG.opacity(isTyping || !text.isEmpty ? 1 : 0))
                         .foregroundStyle(isTyping ? .gitOrange : Color.primary)
                         .padding(.leading).offset(y: isTyping || !text.isEmpty ? -27 : 0)
                         .onTapGesture {

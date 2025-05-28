@@ -15,15 +15,16 @@ struct AuthView: View {
     @State private var confirm: String = ""
     @State private var isAuth: Bool = true
     @State private var observed: Observed = Observed()
-    
+    @State private var trigger: Bool = false
     var body: some View {
         VStack(spacing: 12){
             Image(systemName: "apple.intelligence")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 140)
-            Text("Git Quiz")
-                .font(.title).bold()
+            HackerTextView(text: "Git Quiz", trigger: trigger, transition: .interpolate, speed: 0.01)
+                .font(.title)
+                .transition(.opacity)
                 .foregroundStyle(.gitYellow)
                 .padding(.top, 27)
                 .padding(.bottom, 14)
@@ -53,7 +54,9 @@ struct AuthView: View {
             .font(.callout)
             .tint(.gray)
 
-        } .onChange(of: observed.currentProfile) { _, newValue in
+        }
+        .background(.themeBG)
+            .onChange(of: observed.currentProfile) { _, newValue in
             logStatus = (newValue != nil) // Обновляем logStatus при изменении currentProfile
         }
         .alert("Ошибка", isPresented: Binding<Bool>(

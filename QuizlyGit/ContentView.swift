@@ -22,12 +22,7 @@ struct ContentView: View {
             AuthView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .preferredColorScheme(userTheme.colorScheme)
-//                .background{
-//                    AnimatedMeshGradient()
-//                        .ignoresSafeArea()
-//                        .blur(radius: 50, opaque: true)
-//                }
-//                .background(LinearGradient(colors: [.gitYellow, .gitOrange], startPoint: .topLeading, endPoint: .bottomTrailing))
+                .background(.themeBG)
         }
     }
 }

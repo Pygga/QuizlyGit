@@ -42,7 +42,7 @@ struct NavigationCard: View {
                 
                 Spacer()
                 
-                Image(systemName: "chevron.right.circle.fill")
+                Image(systemName: "chevron.forward")
                     .foregroundColor(.accentColor)
                     .font(.system(size: 20))
             }

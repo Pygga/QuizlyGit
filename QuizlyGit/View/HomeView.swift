@@ -21,7 +21,7 @@ struct HomeView: View {
     @State private var navigationPath = NavigationPath()
     @State private var selectedTab: Tab = .home
     @State private var gameConfig: QuizConfig?
-    
+    @State private var trigger: Bool = false
     @EnvironmentObject var localization: LocalizationManager
     
     private func makeGameView() -> some View {
@@ -220,13 +220,20 @@ struct HomeView: View {
 // Персонализированное приветствие
 private struct HeaderView: View {
     @State private var observed = HomeView.Observed()
+    @State private var trigger: Bool = false
     @EnvironmentObject var localization: LocalizationManager
     var body: some View {
         VStack(alignment: .leading) {
-            Text(greetingText)
-                
+            HStack{
+                HackerTextView(text: getTimeDependentGreeting(), trigger: trigger, transition: .interpolate, speed: 0.01)
+                    .font(.title)
+                    .transition(.opacity)
+                    .padding(.trailing, 5)
+                HackerTextView(text: observed.currentProfile.name.isEmpty ?
+                     "Пользователь" : observed.currentProfile.name, trigger: trigger, transition: .interpolate, speed: 0.01)
                 .font(.title)
                 .transition(.opacity)
+            }
         }
         .padding()
         .environment(\.locale, .init(identifier: localization.currentLanguage))
