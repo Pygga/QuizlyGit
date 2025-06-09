@@ -13,7 +13,6 @@ class SettingsViewModel: ObservableObject {
     
     @Published var settings = AppSettings() {
         didSet {
-//            saveSettingsWithDebounce()
             LocalizationManager.shared.currentLanguage = settings.language
         }
     }

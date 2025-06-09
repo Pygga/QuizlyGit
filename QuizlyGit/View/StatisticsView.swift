@@ -30,6 +30,7 @@ struct StatisticsView: View {
             .padding()
         }
         .background(.themeBG)
+        .scrollIndicators(.hidden)
         .navigationTitle(LocalizedStringKey("statistics"))
         .onAppear { viewModel.loadData() }
         .environment(\.locale, .init(identifier: localization.currentLanguage))

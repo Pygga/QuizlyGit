@@ -12,7 +12,7 @@ struct HomeView: View {
     @State private var observed = Observed()
     @State private var navigateToGame = false
     @State private var showMenu: Bool = false
-    @State private var showTestSettings = false
+//    @State private var showTestSettings = false
     @State private var selectedCategory: String?
     @State private var showingCategorySelection = false
     @State private var activeGameView: Bool = false
@@ -47,13 +47,6 @@ struct HomeView: View {
                         case .home:
                             NavigationStack(path: $navigationPath){
                                 mainContentView
-//                                    .background(
-//                                        LinearGradient(
-//                                            colors: [.background, .secondaryBackground],
-//                                            startPoint: .topLeading,
-//                                            endPoint: .bottomTrailing
-//                                        )
-//                                    )
                                     .navigationDestination(for: String.self) { destination in
                                         switch destination {
                                         case "category":
@@ -83,6 +76,9 @@ struct HomeView: View {
                             RatingView()
                         case .settings:
                             SettingsView(observed: observed)
+                                .background(.settingsBG)
+                        case .achievement:
+                            AchievementsView()
                                 .background(.themeBG)
                         case .logout:
                             EmptyView()
@@ -126,8 +122,8 @@ struct HomeView: View {
                             subtitle: "category_description",
                             color: LinearGradient(
                                 colors: [
-                                    Color(.sRGB, red: 1.0000, green: 0.4824, blue: 0.4824),
-                                    Color(.sRGB, red: 0.9020, green: 0.3529, blue: 0.3529)
+                                    Color(.sRGB, red: 0.3686, green: 0.5059, blue: 0.9569),
+                                    Color(.sRGB, red: 0.2510, green: 0.4039, blue: 0.8392)
                                 ],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
@@ -141,8 +137,8 @@ struct HomeView: View {
                             subtitle: "full_test_description",
                             color: LinearGradient(
                                 colors: [
-                                    Color(.sRGB, red: 1.0000, green: 0.4824, blue: 0.4824),
-                                    Color(.sRGB, red: 0.9020, green: 0.3529, blue: 0.3529)
+                                    Color(.sRGB, red: 0.4275, green: 0.8392, blue: 0.6275),
+                                    Color(.sRGB, red: 0.2941, green: 0.7490, blue: 0.5255)
                                 ],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
@@ -191,27 +187,27 @@ struct HomeView: View {
                     )
                 }
                 .padding(.horizontal)
-                .sheet(isPresented: $showTestSettings) {
-                    TestSettingsView(observed: observed)
-                        .presentationDetents([.height(310)])
-                        .presentationBackground(.clear)
-                }
+//                .sheet(isPresented: $showTestSettings) {
+//                    TestSettingsView(observed: observed)
+//                        .presentationDetents([.height(310)])
+//                        .presentationBackground(.clear)
+//                }
             }
-            .toolbar{
-                ToolbarItem(placement: .bottomBar) {
-                    HStack{
-                        Spacer()
-                        Button(action: {
-//                            gameConfig = observed.currentConfig
-                            showTestSettings.toggle()}) {
-                                Image(systemName: "gearshape.2.fill")
-                                    .foregroundStyle(Color.primary)
-                                    .contentTransition(.symbolEffect)
-                            }
-                            .padding(.trailing, 12)
-                    }
-                }
-            }
+//            .toolbar{
+//                ToolbarItem(placement: .bottomBar) {
+//                    HStack{
+//                        Spacer()
+//                        Button(action: {
+////                            gameConfig = observed.currentConfig
+//                            showTestSettings.toggle()}) {
+//                                Image(systemName: "gearshape.2.fill")
+//                                    .foregroundStyle(Color.primary)
+//                                    .contentTransition(.symbolEffect)
+//                            }
+//                            .padding(.trailing, 12)
+//                    }
+//                }
+//            }
         }
         .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
@@ -232,11 +228,11 @@ private struct HeaderView: View {
                 HackerTextView(text: getTimeDependentGreeting(), trigger: trigger, transition: .interpolate, speed: 0.01)
                     .font(.title)
                     .transition(.opacity)
-                    .padding(.trailing, 5)
-                HackerTextView(text: observed.currentProfile.name.isEmpty ?
-                     "Пользователь" : observed.currentProfile.name, trigger: trigger, transition: .interpolate, speed: 0.01)
-                .font(.title)
-                .transition(.opacity)
+//                    .padding(.trailing, 5)
+//                HackerTextView(text: observed.currentProfile.name.isEmpty ?
+//                     "Пользователь" : observed.currentProfile.name, trigger: trigger, transition: .interpolate, speed: 0.01)
+//                .font(.title)
+//                .transition(.opacity)
             }
         }
         .padding()
@@ -253,21 +249,13 @@ private struct HeaderView: View {
     
     private func getTimeDependentGreeting() -> String {
         let hour = Calendar.current.component(.hour, from: Date())
-//        if localization.currentLanguage == "en"{
             switch hour {
             case 6..<12: return "good_morning"
             case 12..<18: return "good_afternoon"
             case 18..<24: return "good_evening"
             default: return "good_night"
             }
-//        } else {
-//            switch hour {
-//            case 6..<12: return "Доброе утро"
-//            case 12..<18: return "Добрый день"
-//            case 18..<24: return "Добрый вечер"
-//            default: return "Доброй ночи"
-//            }
-//        }
+
     }
 }
 

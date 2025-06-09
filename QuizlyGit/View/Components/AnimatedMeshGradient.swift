@@ -27,11 +27,6 @@ struct AnimatedMeshGradient: View {
                     appear ? .whiteBG : .cyanBG, appear ? .mintBG : .whiteBG, appear ? .whiteBG : .blueBG
                 ]
                 
-//                    colors: [
-//                        appear2 ? .redCust : .gitOrange,appear2 ? .darkGrey : .gitOrange, .darkGrey,
-//                        appear ? .redCust : .gitYellow, appear ? .gitOrange: .sun, .gitYellow,
-//                        appear ? .darkGrey : .redCust, appear ? .redCust : .gitYellow, appear2 ? .gitOrange : .sun
-//                    ]
             )
             .onAppear{
                 withAnimation(.easeInOut(duration : 2).repeatForever(autoreverses: true)){

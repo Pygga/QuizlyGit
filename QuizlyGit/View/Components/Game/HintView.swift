@@ -29,7 +29,7 @@ struct HintView: View {
                         .background(.gitOrange.gradient, in: .circle)
                         .background{
                             Circle()
-                                .stroke(.background, lineWidth: 8)
+                                .stroke(.themeBG, lineWidth: 8)
                         }
 //                    HStack {
 //                        Text("Подсказка")
@@ -44,6 +44,7 @@ struct HintView: View {
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                         .padding(.vertical, 4)
+                        .padding(.horizontal, 4)
 
                     HStack{
                         if let url = URL(string: hint.link) {
@@ -66,7 +67,7 @@ struct HintView: View {
 
                 .background(
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(.background)
+                        .fill(.themeBG)
                         .shadow(radius: 10)
                 )
                 .padding()

@@ -30,28 +30,39 @@ struct SettingsView: View {
     let userUID = Auth.auth().currentUser?.uid ?? " "
     var body: some View {
         NavigationStack{
-//            ScrollView{
                 List{
                     Section(LocalizedStringKey("profile")){
-                        VStack(alignment: .leading){
-                            HStack{
-                                Text(LocalizedStringKey("name"))
-                                Text(": \(viewModel.currentUser.name.isEmpty ? Text(String(format:LocalizationManager.shared.localizedString("not_specified")) ) : Text(viewModel.currentUser.name))")
+                        HStack{
+                            AsyncImage(url: viewModel.currentUser.avatarURL) { image in
+                                image.resizable()
+                            } placeholder: {
+                                Image(systemName: "person.circle.fill")
+                                    .resizable()
                             }
-                            //Кнопка перехода на экран редактирования профиля
-                            Button{
-                                showProfileView.toggle()
-                            } label: {
-                                Text(LocalizedStringKey("profile_settings"))
-                                    .background{
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(.blue)
-                                            .padding(.top, 30)
-                                    }
+                            .frame(width: 70, height: 70)
+                            .clipShape(Circle())
+                            .padding(.trailing, 5)
+                            VStack(alignment: .leading){
+                                HStack{
+                                    Text(LocalizedStringKey("name"))
+                                    Text("\(viewModel.currentUser.name.isEmpty ? Text(String(format:LocalizationManager.shared.localizedString("not_specified")) ) : Text(viewModel.currentUser.name))")
+                                }
+                                //Кнопка перехода на экран редактирования профиля
+                                Button{
+                                    showProfileView.toggle()
+                                } label: {
+                                    Text(LocalizedStringKey("profile_settings"))
+                                        .background{
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .fill(.blue)
+                                                .padding(.top, 30)
+                                        }
+                                }
                             }
                         }
+                        
                     }
-                    
+
                     Section(LocalizedStringKey("app_settings")){
                         //Выбор языка
                         Picker(LocalizedStringKey("language"), selection: $localization.currentLanguage) {
@@ -69,7 +80,6 @@ struct SettingsView: View {
                         }.foregroundColor(.primary)
                         
                     }
-                    
                     Section(LocalizedStringKey("notifications")){
                         //Уведомления
                         Toggle(LocalizedStringKey("receive_notifications"), isOn: $viewModel.settings.notificationsEnabled)
@@ -82,13 +92,11 @@ struct SettingsView: View {
                             }
                     }
                 }
-                .background(.themeBG)
+                .scrollContentBackground(.hidden)
                 .navigationTitle(LocalizedStringKey("title_settings"))
                 .task {await viewModel.loadData()
                     viewModel.saveSettings()
                 }
-//            }
-//            .background(.themeBG)
         }
         .preferredColorScheme(userTheme.colorScheme)
         .sheet(isPresented: $changeTheme, content: {
@@ -98,6 +106,7 @@ struct SettingsView: View {
         })
         .sheet(isPresented: $showProfileView, content: {
             ProfileView(viewModel: viewModel)
+                .background(.colorBG)
         })
         .environment(\.locale, .init(identifier: localization.currentLanguage))
     }

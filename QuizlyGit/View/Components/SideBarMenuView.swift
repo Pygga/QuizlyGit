@@ -66,6 +66,7 @@ struct SideBarMenuView: View {
 //Пока что так
 enum Tab: String, CaseIterable {
     case home = "gamecontroller.fill"
+    case achievement = "rosette"
     case rating = "person.3.sequence.fill"
     case statistics = "chart.bar.fill"
     case settings = "gearshape.fill"
@@ -75,6 +76,7 @@ enum Tab: String, CaseIterable {
         switch self {
             
         case .home: return "play"
+        case .achievement: return "Достижения"
         case .rating: return "rating"
         case .statistics: return "statistics"
         case .settings: return "settings"

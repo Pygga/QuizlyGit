@@ -8,7 +8,7 @@
 
 /* Profile */
 "profile" = "Profile";
-"name" = "Name";
+"name" = "Name:";
 "not_specified" = "Not specified";
 "points" = "Points";
 "profile_settings" = "Profile Settings";

@@ -8,7 +8,7 @@
 
 /* Профиль */
 "profile" = "Профиль";
-"name" = "Имя";
+"name" = "Имя:";
 "not_specified" = "Не указано";
 "points" = "Очки";
 "profile_settings" = "Настройки профиля";
@@ -18,7 +18,7 @@
 "language" = "Язык";
 "theme" = "Тема";
 "notifications" = "Уведомления";
-"receive_notifications" = "Получать уведомления";
+"receive_notifications" = "Получать напоминания";
 "change_theme" = "Сменить тему";
 "delete_account" = "Удалить аккаунт";
 "sign_out" = "Выйти";

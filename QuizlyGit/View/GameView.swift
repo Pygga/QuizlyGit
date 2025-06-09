@@ -145,29 +145,3 @@ struct GameView: View {
             .environment(\.locale, .init(identifier: localization.currentLanguage))
     }
 }
-
-// MARK: - Компоненты
-struct QuestionCard: View {
-    let question: ShuffledQuestion
-    @EnvironmentObject var localization: LocalizationManager
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Вопрос")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            Text(question.original.text)
-                .font(.system(size: 18, weight: .medium))
-            
-            if let codeExample = question.codeExample {
-                CodeBlock(text: codeExample)
-            }
-        }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(Color(.secondarySystemBackground))
-        .cornerRadius(12)
-        .environment(\.locale, .init(identifier: localization.currentLanguage))
-    }
-}

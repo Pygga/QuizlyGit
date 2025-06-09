@@ -34,8 +34,9 @@ struct CustomTextField: View {
                                 Image(systemName: isSecureField ? "eye.fill" : "eye.slash.fill")
                                     .resizable()
                                     .frame(width: 26.5, height: 16.5)
+                                
                             }
-                            .padding(.trailing, 2)
+                            .padding(.trailing, 5)
                             .tint(.gitOrange)
                         }
                     }

@@ -24,8 +24,7 @@ actor AuthService{
     
     //MARK: Reg
     func signUp(withEmail email: String, password: String) async throws -> Profile {
-        let user = try await Auth.auth().createUser(withEmail: email,
-                                              password: password)
+        let user = try await Auth.auth().createUser(withEmail: email, password: password)
         let currentUser = user.user
         print("User created")
         let profile = Profile(id: currentUser.uid, name: "", email: currentUser.email!, score: 0)

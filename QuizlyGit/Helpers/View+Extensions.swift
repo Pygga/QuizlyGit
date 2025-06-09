@@ -9,18 +9,6 @@ import SwiftUI
 
 
 extension View{
-//    @ViewBuilder
-//    func hSpacing(_ aligment: Alignment = .center) -> some View{
-//        self
-//            .frame(maxWidth: .infinity,alignment: aligment)
-//    }
-//    
-//    @ViewBuilder
-//    func vSpacing(_ aligment: Alignment = .center) -> some View{
-//        self
-//            .frame(maxHeight: .infinity,alignment: aligment)
-//    }
-    
     @available(iOSApplicationExtension, unavailable)
     var safeArea: UIEdgeInsets {
         if let windowScene = (UIApplication.shared.connectedScenes.first as? UIWindowScene){
@@ -123,5 +111,25 @@ extension String {
             searchStartIndex = range.upperBound
         }
         return ranges
+    }
+}
+
+// Хелпер для отслеживания размера
+extension View {
+    func onSizeChange(perform action: @escaping (CGSize) -> Void) -> some View {
+        background(
+            GeometryReader { geometry in
+                Color.clear
+                    .preference(key: SizePreferenceKey.self, value: geometry.size)
+            }
+        )
+        .onPreferenceChange(SizePreferenceKey.self, perform: action)
+    }
+}
+
+struct SizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = nextValue()
     }
 }

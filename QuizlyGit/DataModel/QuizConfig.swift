@@ -9,11 +9,11 @@ import Foundation
 struct QuizConfig {
     var categories: [String]
     var isPresetTest: Bool
-    var showHints: Bool  // Добавляем недостающее поле
+    var showHints: Bool
     var timePerQuestion: Int
     var questionsCount: Int
-    var stopOnWrongAnswer: Bool // Новый параметр для режима "До первой ошибки"
-    // Добавляем инициализатор с значениями по умолчанию
+    var stopOnWrongAnswer: Bool
+    
     init(
         categories: [String] = [],
         isPresetTest: Bool = false,

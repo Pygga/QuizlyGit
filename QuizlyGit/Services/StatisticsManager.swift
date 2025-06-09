@@ -35,6 +35,17 @@ class StatisticsManager {
                 }
                 
                 try await firestoreService.updateStatistics(userId: userId, stats: stats)
+                
+                // Добавьте проверку достижений после сохранения статистики
+                DispatchQueue.global(qos: .background).async {
+                    let unlocked = AchievementManager.shared.checkAchievements(stats: stats)
+                    
+//                    if !unlocked.isEmpty {
+//                        DispatchQueue.main.async {
+//                            self.showAchievementNotification(unlocked)
+//                        }
+//                    }
+                }
             } catch {
                 print("Ошибка сохранения статистики: \(error)")
             }

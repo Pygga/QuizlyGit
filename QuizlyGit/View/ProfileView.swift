@@ -56,7 +56,7 @@ struct ProfileView: View {
                 }
             }
         }
-        .navigationTitle("Редактирование профиля")
+//        .navigationTitle("Редактирование профиля")
         .sheet(isPresented: $viewModel.showImagePicker) {
             ImagePicker(image: $viewModel.avatarImage)
         }

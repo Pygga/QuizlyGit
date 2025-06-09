@@ -52,7 +52,7 @@ struct AnswerCard: View {
         if isSelected {
             return isCorrect ? Color.green.opacity(0.1) : Color.red.opacity(0.1)
         }
-        return Color(.tertiarySystemBackground)
+        return .themeBG
     }
     
     private var borderColor: Color {

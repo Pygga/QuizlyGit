@@ -38,19 +38,7 @@ struct CodeBlock: View {
             ( #""(?:\\"|[^"])*""#, .yellow ) // Строковые литералы
         ]
         var attributedString = AttributedString(code)
-//        attributedString[start..<end].foregroundColor = colorScheme == .dark ? rule.color : rule.color.opacity(0.8)
-//        for rule in syntaxRules {
-//            let ranges = code.ranges(
-//                of: rule.pattern,
-//                options: .regularExpression,
-//                locale: nil
-//            )
-//            
-//            for range in ranges {
-//                guard let attrRange = Range(range, in: attributedString) else { continue }
-//                attributedString[attrRange].foregroundColor = rule.color
-//            }
-//        }
+
         
         for rule in syntaxRules {
             guard let regex = try? NSRegularExpression(pattern: rule.pattern) else { continue }

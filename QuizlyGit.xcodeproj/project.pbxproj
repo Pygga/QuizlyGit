@@ -48,9 +48,7 @@
 		B22812922DCBE72400CDBF1E /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812912DCBE72400CDBF1E /* LeaderboardViewModel.swift */; };
 		B22812942DCBE76200CDBF1E /* LeaderboardUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812932DCBE76200CDBF1E /* LeaderboardUser.swift */; };
 		B22812962DCCCB6700CDBF1E /* TestSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812952DCCCB6700CDBF1E /* TestSettingsView.swift */; };
-		B22812982DDC986B00CDBF1E /* HomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812972DDC986B00CDBF1E /* HomeCardView.swift */; };
 		B228129A2DDC98D000CDBF1E /* CategorySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812992DDC98D000CDBF1E /* CategorySelectionView.swift */; };
-		B228129C2DDCD5F400CDBF1E /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228129B2DDCD5F400CDBF1E /* ProgressBarView.swift */; };
 		B228129E2DDCEFB600CDBF1E /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228129D2DDCEFB600CDBF1E /* BackButton.swift */; };
 		B22812A22DE0B5D800CDBF1E /* StatsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812A12DE0B5D800CDBF1E /* StatsGrid.swift */; };
 		B22812A42DE0BB6700CDBF1E /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812A32DE0BB6700CDBF1E /* LocalizationManager.swift */; };
@@ -72,6 +70,17 @@
 		B22812DA2DE5A69700CDBF1E /* CodeBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812D92DE5A69700CDBF1E /* CodeBlock.swift */; };
 		B22812DE2DE60B7300CDBF1E /* HackerTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22812DD2DE60B7300CDBF1E /* HackerTextView.swift */; };
 		B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23F38102DC607C200FD440B /* QuizConfig.swift */; };
+		B24E26802DE9DDD90015B65C /* CategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E267F2DE9DDD90015B65C /* CategoryCard.swift */; };
+		B24E26822DE9DF050015B65C /* QuestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E26812DE9DF050015B65C /* QuestionCard.swift */; };
+		B24E26862DEAFD990015B65C /* AchievementsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E26852DEAFD990015B65C /* AchievementsViewModel.swift */; };
+		B24E26882DEAFDBE0015B65C /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E26872DEAFDBE0015B65C /* Achievement.swift */; };
+		B24E268A2DEAFE090015B65C /* AchievementUnlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E26892DEAFE090015B65C /* AchievementUnlocker.swift */; };
+		B24E268C2DEAFE280015B65C /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E268B2DEAFE280015B65C /* AchievementManager.swift */; };
+		B24E268E2DEB0B7C0015B65C /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E268D2DEB0B7C0015B65C /* AchievementsView.swift */; };
+		B24E26902DEB1C6C0015B65C /* AchievementCircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E268F2DEB1C6B0015B65C /* AchievementCircularView.swift */; };
+		B24E26922DEB1CA00015B65C /* ArcShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E26912DEB1CA00015B65C /* ArcShape.swift */; };
+		B24E26942DEB1CB70015B65C /* CurvedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E26932DEB1CB70015B65C /* CurvedText.swift */; };
+		B24E26962DEB1D500015B65C /* AchievementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24E26952DEB1D500015B65C /* AchievementDetailView.swift */; };
 		B2594A082DC2725400ECA24A /* HomeObserved.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A072DC2725400ECA24A /* HomeObserved.swift */; };
 		B2594A0E2DC3612800ECA24A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A0D2DC3612800ECA24A /* GameViewModel.swift */; };
 		B2594A122DC3923B00ECA24A /* ResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2594A112DC3923B00ECA24A /* ResultRow.swift */; };
@@ -119,9 +128,7 @@
 		B22812912DCBE72400CDBF1E /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
 		B22812932DCBE76200CDBF1E /* LeaderboardUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUser.swift; sourceTree = "<group>"; };
 		B22812952DCCCB6700CDBF1E /* TestSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSettingsView.swift; sourceTree = "<group>"; };
-		B22812972DDC986B00CDBF1E /* HomeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardView.swift; sourceTree = "<group>"; };
 		B22812992DDC98D000CDBF1E /* CategorySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionView.swift; sourceTree = "<group>"; };
-		B228129B2DDCD5F400CDBF1E /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		B228129D2DDCEFB600CDBF1E /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		B22812A12DE0B5D800CDBF1E /* StatsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsGrid.swift; sourceTree = "<group>"; };
 		B22812A32DE0BB6700CDBF1E /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
@@ -144,6 +151,17 @@
 		B22812D92DE5A69700CDBF1E /* CodeBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlock.swift; sourceTree = "<group>"; };
 		B22812DD2DE60B7300CDBF1E /* HackerTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerTextView.swift; sourceTree = "<group>"; };
 		B23F38102DC607C200FD440B /* QuizConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizConfig.swift; sourceTree = "<group>"; };
+		B24E267F2DE9DDD90015B65C /* CategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCard.swift; sourceTree = "<group>"; };
+		B24E26812DE9DF050015B65C /* QuestionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCard.swift; sourceTree = "<group>"; };
+		B24E26852DEAFD990015B65C /* AchievementsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewModel.swift; sourceTree = "<group>"; };
+		B24E26872DEAFDBE0015B65C /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
+		B24E26892DEAFE090015B65C /* AchievementUnlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementUnlocker.swift; sourceTree = "<group>"; };
+		B24E268B2DEAFE280015B65C /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
+		B24E268D2DEB0B7C0015B65C /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
+		B24E268F2DEB1C6B0015B65C /* AchievementCircularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCircularView.swift; sourceTree = "<group>"; };
+		B24E26912DEB1CA00015B65C /* ArcShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcShape.swift; sourceTree = "<group>"; };
+		B24E26932DEB1CB70015B65C /* CurvedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedText.swift; sourceTree = "<group>"; };
+		B24E26952DEB1D500015B65C /* AchievementDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDetailView.swift; sourceTree = "<group>"; };
 		B2594A072DC2725400ECA24A /* HomeObserved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeObserved.swift; sourceTree = "<group>"; };
 		B2594A0D2DC3612800ECA24A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		B2594A112DC3923B00ECA24A /* ResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRow.swift; sourceTree = "<group>"; };
@@ -237,6 +255,7 @@
 		B2167F782DC0ECA300C1E216 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B24E268B2DEAFE280015B65C /* AchievementManager.swift */,
 				B22812A32DE0BB6700CDBF1E /* LocalizationManager.swift */,
 				B22812872DCBA7AF00CDBF1E /* StatisticsManager.swift */,
 				B22812752DC6569E00CDBF1E /* QuestionStorage.swift */,
@@ -274,6 +293,7 @@
 				B2E59F572DC14C4C00E52208 /* Components */,
 				B2594A042DC26FAC00ECA24A /* ViewModel */,
 				B2594A1C2DC3ABFA00ECA24A /* GameView.swift */,
+				B24E268D2DEB0B7C0015B65C /* AchievementsView.swift */,
 				B2594A172DC392BF00ECA24A /* ResultsView.swift */,
 				B2E59F512DC14B2100E52208 /* HomeView.swift */,
 				B2E59F532DC14B3600E52208 /* AuthView.swift */,
@@ -288,6 +308,8 @@
 		B2167F7E2DC0EFC800C1E216 /* Identifiaeble */ = {
 			isa = PBXGroup;
 			children = (
+				B24E26872DEAFDBE0015B65C /* Achievement.swift */,
+				B24E26892DEAFE090015B65C /* AchievementUnlocker.swift */,
 				B22812D72DE5895F00CDBF1E /* ShuffledQuestion.swift */,
 				B22812732DC635D700CDBF1E /* Category.swift */,
 				B2167F7F2DC0EFFF00C1E216 /* Profile.swift */,
@@ -307,13 +329,12 @@
 			isa = PBXGroup;
 			children = (
 				B22812C42DE37F3B00CDBF1E /* Comp_for_game */,
-				B228129B2DDCD5F400CDBF1E /* ProgressBarView.swift */,
 				B22812992DDC98D000CDBF1E /* CategorySelectionView.swift */,
-				B22812972DDC986B00CDBF1E /* HomeCardView.swift */,
 				B22812952DCCCB6700CDBF1E /* TestSettingsView.swift */,
 				B2594A112DC3923B00ECA24A /* ResultRow.swift */,
 				B2594A152DC3929700ECA24A /* ErrorView.swift */,
 				B2594A1E2DC3C51500ECA24A /* HintView.swift */,
+				B24E267F2DE9DDD90015B65C /* CategoryCard.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -331,6 +352,8 @@
 		B22812C12DE37E1C00CDBF1E /* Style */ = {
 			isa = PBXGroup;
 			children = (
+				B24E26932DEB1CB70015B65C /* CurvedText.swift */,
+				B24E26912DEB1CA00015B65C /* ArcShape.swift */,
 				B22812D92DE5A69700CDBF1E /* CodeBlock.swift */,
 				B22812D32DE3882900CDBF1E /* ScaleStyle.swift */,
 				B22812C22DE37E2500CDBF1E /* MorphButtonStyle.swift */,
@@ -347,6 +370,7 @@
 				B22812C92DE37FDA00CDBF1E /* ProgressCounter.swift */,
 				B22812C72DE37F9600CDBF1E /* AnswersGrid.swift */,
 				B22812C52DE37F6900CDBF1E /* AnswerCard.swift */,
+				B24E26812DE9DF050015B65C /* QuestionCard.swift */,
 			);
 			path = Comp_for_game;
 			sourceTree = "<group>";
@@ -358,6 +382,7 @@
 				B22812892DCBA89700CDBF1E /* StatisticsViewModel.swift */,
 				B22812812DCA7EDF00CDBF1E /* SettingsViewModel.swift */,
 				B2594A0D2DC3612800ECA24A /* GameViewModel.swift */,
+				B24E26852DEAFD990015B65C /* AchievementsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -375,6 +400,8 @@
 			isa = PBXGroup;
 			children = (
 				B22812C12DE37E1C00CDBF1E /* Style */,
+				B24E26952DEB1D500015B65C /* AchievementDetailView.swift */,
+				B24E268F2DEB1C6B0015B65C /* AchievementCircularView.swift */,
 				B22812BF2DE37DED00CDBF1E /* NavigationCard.swift */,
 				B22812BD2DE37D7700CDBF1E /* ImagePicker.swift */,
 				B22812B72DE3575D00CDBF1E /* LoadingRingView.swift */,
@@ -499,6 +526,9 @@
 				B22812762DC6569E00CDBF1E /* QuestionStorage.swift in Sources */,
 				B2E59F5B2DC1EBE500E52208 /* CustomTextField.swift in Sources */,
 				B2E59F562DC14BDF00E52208 /* View+Extensions.swift in Sources */,
+				B24E26922DEB1CA00015B65C /* ArcShape.swift in Sources */,
+				B24E26822DE9DF050015B65C /* QuestionCard.swift in Sources */,
+				B24E26882DEAFDBE0015B65C /* Achievement.swift in Sources */,
 				B2E59F522DC14B2100E52208 /* HomeView.swift in Sources */,
 				B22812A22DE0B5D800CDBF1E /* StatsGrid.swift in Sources */,
 				B22812DA2DE5A69700CDBF1E /* CodeBlock.swift in Sources */,
@@ -510,6 +540,7 @@
 				B2167F842DC0F52400C1E216 /* FirestoreService.swift in Sources */,
 				B22812D42DE3882900CDBF1E /* ScaleStyle.swift in Sources */,
 				B22812862DCBA34F00CDBF1E /* GitRank.swift in Sources */,
+				B24E26962DEB1D500015B65C /* AchievementDetailView.swift in Sources */,
 				B22812C82DE37F9600CDBF1E /* AnswersGrid.swift in Sources */,
 				B22812BE2DE37D7700CDBF1E /* ImagePicker.swift in Sources */,
 				B22812A42DE0BB6700CDBF1E /* LocalizationManager.swift in Sources */,
@@ -524,28 +555,33 @@
 				B22812CC2DE3800500CDBF1E /* CloseButton.swift in Sources */,
 				B22812822DCA7EDF00CDBF1E /* SettingsViewModel.swift in Sources */,
 				B22812802DCA7D8A00CDBF1E /* UserStatistics.swift in Sources */,
+				B24E26942DEB1CB70015B65C /* CurvedText.swift in Sources */,
 				B22812B82DE3575D00CDBF1E /* LoadingRingView.swift in Sources */,
 				B22812BC2DE37C8000CDBF1E /* ScaleButtonStyle.swift in Sources */,
 				B22812882DCBA7AF00CDBF1E /* StatisticsManager.swift in Sources */,
 				B228128A2DCBA89700CDBF1E /* StatisticsViewModel.swift in Sources */,
 				B22812702DC629A500CDBF1E /* SideBarMenuView.swift in Sources */,
+				B24E268E2DEB0B7C0015B65C /* AchievementsView.swift in Sources */,
 				B22812D02DE3804800CDBF1E /* NextButton.swift in Sources */,
 				B22812842DCB94FD00CDBF1E /* RatingView.swift in Sources */,
 				B228128C2DCBC8DE00CDBF1E /* StatCard.swift in Sources */,
 				B2167F822DC0F1D200C1E216 /* AuthService.swift in Sources */,
 				B2594A262DC4E60300ECA24A /* AnimatedSideBar.swift in Sources */,
+				B24E26802DE9DDD90015B65C /* CategoryCard.swift in Sources */,
 				B22812962DCCCB6700CDBF1E /* TestSettingsView.swift in Sources */,
 				B2167F402DC0EAD200C1E216 /* ContentView.swift in Sources */,
 				B2E59F5D2DC1FB9000E52208 /* CustomButton.swift in Sources */,
 				B22812C62DE37F6900CDBF1E /* AnswerCard.swift in Sources */,
+				B24E268C2DEAFE280015B65C /* AchievementManager.swift in Sources */,
+				B24E26862DEAFD990015B65C /* AchievementsViewModel.swift in Sources */,
 				B228127C2DC6634500CDBF1E /* SettingsView.swift in Sources */,
+				B24E26902DEB1C6C0015B65C /* AchievementCircularView.swift in Sources */,
 				B2E59F542DC14B3600E52208 /* AuthView.swift in Sources */,
 				B228127E2DCA7D7200CDBF1E /* AppSettings.swift in Sources */,
+				B24E268A2DEAFE090015B65C /* AchievementUnlocker.swift in Sources */,
 				B23F38112DC607C200FD440B /* QuizConfig.swift in Sources */,
-				B22812982DDC986B00CDBF1E /* HomeCardView.swift in Sources */,
 				B22812D82DE5895F00CDBF1E /* ShuffledQuestion.swift in Sources */,
 				B22812C02DE37DED00CDBF1E /* NavigationCard.swift in Sources */,
-				B228129C2DDCD5F400CDBF1E /* ProgressBarView.swift in Sources */,
 				B22812782DC6631500CDBF1E /* ProfileView.swift in Sources */,
 				B22812CE2DE3802400CDBF1E /* HintButton.swift in Sources */,
 				B2E59F592DC14C8000E52208 /* ThemeChangeView.swift in Sources */,
